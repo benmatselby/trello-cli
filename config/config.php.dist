@@ -1,0 +1,8 @@
+<?php
+
+$app['ttfs.config'] = array(
+    'trello' => array(
+        'key' => '[APPLICATION KEY]',
+        'secret' => '[SECRET]',
+    )
+);
