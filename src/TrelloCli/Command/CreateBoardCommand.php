@@ -3,20 +3,24 @@
  * Create a board in trello
  */
 
-namespace Ttfs\Command;
+namespace TrelloCli\Command;
 
 use Symfony\Component\Console\Input\InputArgument,
+    Symfony\Component\Console\Input\InputOption,
     Symfony\Component\Console\Input\InputInterface,
     Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * Create a board in trello
  *
- * Responsible for taking a txt file from [location] which is in
- * the format exported from TFS web and then creating a board
+ * Responsible for taking a txt file from [location] which is in a tab|csv
+ * format and then creating a board
  */
 class CreateBoardCommand extends \Cilex\Command\Command
 {
+    const FORMAT_CSV = 'csv';
+    const FORMAT_TAB = 'tab';
+
     /**
      * Configure the command
      */
@@ -24,9 +28,10 @@ class CreateBoardCommand extends \Cilex\Command\Command
     {
         $this
             ->setName('create')
-            ->setDescription('Create a board based on a copy/pasted output from TFS Web. Save the output in a tab (default) separated text file. It must have at least ID, Story Points, Work Item Type and Title defined in the output')
+            ->setDescription('Create a board based on a file in csv|tab format. Format should be' . PHP_EOL . '           ID, Story Points, Title, Description')
             ->addArgument('name', InputArgument::REQUIRED, 'The board name')
-            ->addArgument('file', InputArgument::OPTIONAL, 'The text file location', '/tmp/tfs.txt');
+            ->addArgument('file', InputArgument::OPTIONAL, 'The text file location', '/tmp/trello.txt')
+            ->addOption('format', null, InputOption::VALUE_OPTIONAL, 'Format of the input (tab|csv)', self::FORMAT_CSV);
     }
 
     /**
@@ -37,23 +42,33 @@ class CreateBoardCommand extends \Cilex\Command\Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $client = new \Ttfs\Client($this->getContainer());
+        $client = new \TrelloCli\Client($this->getContainer());
         $http = $client->getHttpClient();
 
         $location = $input->getArgument('file');
+        $format = $input->getOption('format');
+
+        if ($format != self::FORMAT_CSV && $format != self::FORMAT_TAB) {
+            throw new \InvalidArgumentException($format . ' is not a valid format');
+        }
 
         if (!file_exists($location)) {
             throw new \InvalidArgumentException($location . ' does not exist');
         }
 
-        $tfs = explode(PHP_EOL, file_get_contents($location));
-        $header = explode("\t", array_shift($tfs));
+        $fileContents = explode(PHP_EOL, file_get_contents($location));
+
+        if ($format == self::FORMAT_TAB) {
+            $header = explode("\t", array_shift($fileContents));
+        } else {
+            $header = explode(",", array_shift($fileContents));
+        }
 
         // Setup the keys for the data
         $idIdx = array_search('ID', $header);
         $titleIdx = array_search('Title', $header);
-        $typeIdx = array_search('Work Item Type', $header);
         $storyPointsIdx = array_search('Story Points', $header);
+        $descIdx = array_search('Description', $header);
 
         // Create the board
         $boardResult = $http->post('/1/boards', [
@@ -77,20 +92,19 @@ class CreateBoardCommand extends \Cilex\Command\Command
         $output->writeln('List ID: ' . $listId);
 
         // Create the cards
-        foreach ($tfs as $line) {
+        foreach ($fileContents as $line) {
             $parts = explode("\t", $line);
 
-            if ($parts[$typeIdx] === 'Requirement') {
-                $cardResult = $http->post('/1/cards', [
-                    'body' => [
-                        'name' => '(' . $parts[$storyPointsIdx] . ')' . $parts[$idIdx] . ' - ' . $parts[$titleIdx],
-                        'idList' => $listId,
-                        'urlSource' => null
-                    ]
-                ]);
+            $cardResult = $http->post('/1/cards', [
+                'body' => [
+                    'name' => '(' . $parts[$storyPointsIdx] . ')' . $parts[$idIdx] . ' - ' . $parts[$titleIdx],
+                    'desc' => $parts[$descIdx],
+                    'idList' => $listId,
+                    'urlSource' => null
+                ]
+            ]);
 
-                $output->writeln('Card ID: ' . $cardResult->json()['id']);
-            }
+            $output->writeln('Card ID: ' . $cardResult->json()['id']);
         }
     }
 }

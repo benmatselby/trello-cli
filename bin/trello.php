@@ -4,12 +4,12 @@
 require_once __DIR__ . '/../vendor/autoload.php';
 
 $version = '0.1';
-$app = new \Cilex\Application('Trello TFS Bridge', $version);
+$app = new \Cilex\Application('Trello CLI', $version);
 
 // Configuration
 $app['debug'] = true;
 require __DIR__ . '/../config/config.php';
 
-$app->command(new \Ttfs\Command\ListBoardsCommand());
-$app->command(new \Ttfs\Command\CreateBoardCommand());
+$app->command(new \TrelloCli\Command\ListBoardsCommand());
+$app->command(new \TrelloCli\Command\CreateBoardCommand());
 $app->run();

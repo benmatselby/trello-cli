@@ -3,7 +3,7 @@
  * List boards command
  */
 
-namespace Ttfs\Command;
+namespace TrelloCli\Command;
 
 use Symfony\Component\Console\Input\InputArgument,
     Symfony\Component\Console\Input\InputOption,
@@ -23,7 +23,7 @@ class ListBoardsCommand extends \Cilex\Command\Command
     protected function configure()
     {
         $this
-            ->setName('list-boards')
+            ->setName('boards')
             ->setDescription('List all boards for user')
             ->addOption('cards', 'c', InputOption::VALUE_NONE, 'The board name');
     }
@@ -38,7 +38,7 @@ class ListBoardsCommand extends \Cilex\Command\Command
     {
         $showCards = $input->getOption('cards');
 
-        $client = new \Ttfs\Client($this->getContainer());
+        $client = new \TrelloCli\Client($this->getContainer());
         $http = $client->getHttpClient();
 
         $boardsResponse = $http->get('/1/members/me/boards');

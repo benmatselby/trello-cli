@@ -1,5 +1,5 @@
 explain:
-	# Makefile for the Trello TFS Bridge application, please specify a target
+	# Makefile for the Trello CLI application, please specify a target
 	#
 	#
 	### Requirements
@@ -18,7 +18,7 @@ explain:
 	### Execution
 	#
 	# Run:
-	#   -> $$ bin/ttfs.php
+	#   -> $$ bin/trello.php
 	#
 
 clean:

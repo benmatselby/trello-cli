@@ -1,9 +1,9 @@
 <?php
 /**
- * Ttfs Client
+ * Trello Client
  */
 
-namespace Ttfs;
+namespace TrelloCli;
 
 use GuzzleHttp\Client as HttpClient;
 
@@ -47,8 +47,8 @@ class Client
                 'base_url' => 'https://api.trello.com/',
                 'defaults' => [
                     'query' => [
-                        'key' => $this->container['ttfs.config']['trello']['key'],
-                        'token' => $this->container['ttfs.config']['trello']['secret']
+                        'key' => $this->container['trello.cli.config']['trello']['key'],
+                        'token' => $this->container['trello.cli.config']['trello']['secret']
                     ]
                 ]
             ]);

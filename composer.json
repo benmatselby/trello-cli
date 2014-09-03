@@ -1,6 +1,6 @@
 {
-    "name":        "benmatselby/trello-tfs-cli",
-    "description": "A small cli app to take TFS copied sprint and create a trello board",
+    "name":        "benmatselby/trello-cli",
+    "description": "Small Trello cli application for creating sprint boards based and management tools",
 
     "require": {
         "Cilex/Cilex": "1.1.0@stable",
@@ -13,7 +13,7 @@
 
     "autoload": {
         "psr-0": {
-            "Ttfs": "src/"
+            "TrelloCli": "src/"
         }
     }
 }

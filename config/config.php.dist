@@ -1,6 +1,6 @@
 <?php
 
-$app['ttfs.config'] = array(
+$app['trello.cli.config'] = array(
     'trello' => array(
         'key' => '[APPLICATION KEY]',
         'secret' => '[SECRET]',
