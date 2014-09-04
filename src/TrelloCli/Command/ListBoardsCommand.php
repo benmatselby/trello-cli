@@ -25,7 +25,8 @@ class ListBoardsCommand extends \Cilex\Command\Command
         $this
             ->setName('boards')
             ->setDescription('List all boards for user')
-            ->addOption('cards', 'c', InputOption::VALUE_NONE, 'The board name');
+            ->addOption('cards', 'c', InputOption::VALUE_NONE, 'The board name')
+            ->addOption('debug', 'd', InputOption::VALUE_NONE, 'Show debug information');
     }
 
     /**
@@ -37,24 +38,30 @@ class ListBoardsCommand extends \Cilex\Command\Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $showCards = $input->getOption('cards');
+        $debug = $input->getOption('debug');
 
         $client = new \TrelloCli\Client($this->getContainer());
-        $http = $client->getHttpClient();
-
-        $boardsResponse = $http->get('/1/members/me/boards');
-        $boards = $boardsResponse->json();
+        $boards = $client->getBoards();
 
         $output->writeln('Boards found: ' . count($boards) . PHP_EOL);
 
         foreach ($boards as $board) {
             $output->writeln($board['name'] . ($board['closed'] ? ' [Closed]' : ''));
 
+            if ($debug) {
+                $output->writeln(var_export($board, 1));
+            }
+
             if ($showCards == true) {
-                $cardsResponse = $http->get('/1/boards/' . $board['id'] . '/cards');
-                $cards = $cardsResponse->json();
+                $cards = $client->getCards($board['id']);
 
                 foreach ($cards as $card) {
+
                     $output->writeln(' ' . $card['name']);
+
+                    if ($debug) {
+                        $output->writeln(var_export($card, 1));
+                    }
                 }
             }
         }

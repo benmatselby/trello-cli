@@ -29,21 +29,13 @@ class Client
      *
      * @param CilexApplication $container Application container
      */
-    public function __construct($container)
+    public function __construct($container, $httpClient = null)
     {
         $this->container = $container;
-    }
 
-    /**
-     * Wrapper to the guzzlehttp client
-     *
-     * @return GuzzleHttp\Client
-     */
-    public function getHttpClient()
-    {
         if ($this->httpClient === null) {
 
-            $client = new HttpClient([
+            $httpClient = new HttpClient([
                 'base_url' => 'https://api.trello.com/',
                 'defaults' => [
                     'query' => [
@@ -52,10 +44,36 @@ class Client
                     ]
                 ]
             ]);
-
-            $this->httpClient = $client;
         }
 
-        return $this->httpClient;
+        $this->httpClient = $httpClient;
+    }
+
+    /**
+     * Getter for the Boards
+     *
+     * @return array
+     */
+    public function getBoards()
+    {
+        $boardsResponse = $this->httpClient->get('/1/members/me/boards');
+        $boards = $boardsResponse->json();
+
+        return $boards;
+    }
+
+    /**
+     * Getter for the cards
+     *
+     * @param  int $boardId Id of the board which the cards are on
+     *
+     * @return array
+     */
+    public function getCards($boardId)
+    {
+        $cardsResponse = $this->httpClient->get('/1/boards/' . $boardId . '/cards');
+        $cards = $cardsResponse->json();
+
+        return $cards;
     }
 }
