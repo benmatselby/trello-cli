@@ -33,7 +33,7 @@ class Client
     {
         $this->container = $container;
 
-        if ($this->httpClient === null) {
+        if ($httpClient === null) {
 
             $httpClient = new HttpClient([
                 'base_url' => 'https://api.trello.com/',
@@ -47,6 +47,16 @@ class Client
         }
 
         $this->httpClient = $httpClient;
+    }
+
+    /**
+     * Getter for the HTTPClient
+     *
+     * @return GuzzleHttp
+     */
+    public function getHttpClient()
+    {
+        return $this->httpClient;
     }
 
     /**

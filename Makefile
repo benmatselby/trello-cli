@@ -35,4 +35,10 @@ install:
 	#
 	# You will need to generate some API keys: https://trello.com/docs/gettingstarted/index.html#getting-an-application-key
 
-.PHONY: clean install
+# Testing
+test: test-php
+
+test-php:
+	phpunit
+
+.PHONY: clean install test
