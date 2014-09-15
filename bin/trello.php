@@ -10,6 +10,7 @@ $app = new \Cilex\Application('Trello CLI', $version);
 $app['debug'] = true;
 require __DIR__ . '/../config/config.php';
 
+$app->command(new \TrelloCli\Command\ListCardsCommand());
 $app->command(new \TrelloCli\Command\ListBoardsCommand());
 $app->command(new \TrelloCli\Command\CreateBoardCommand());
 $app->run();

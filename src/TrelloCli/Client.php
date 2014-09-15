@@ -63,9 +63,9 @@ class Client
     }
 
     /**
-     * Getter for the cards
+     * Getter for the cards from a given board
      *
-     * @param  int $boardId Id of the board which the cards are on
+     * @param int $boardId Id of the board which the cards are on
      *
      * @return array
      */
@@ -75,5 +75,20 @@ class Client
         $cards = $cardsResponse->json();
 
         return $cards;
+    }
+
+    /**
+     * Getter for the lists from a given board
+     *
+     * @param int $boardId Id of the board which the lists are defined
+     *
+     * @return array
+     */
+    public function getLists($boardId)
+    {
+        $listsResponse = $this->httpClient->get('/1/boards/' . $boardId . '/lists');
+        $lists = $listsResponse->json();
+
+        return $lists;
     }
 }
