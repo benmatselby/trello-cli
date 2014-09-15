@@ -74,7 +74,7 @@ class ListCardsCommand extends \Cilex\Command\Command
 
                 foreach ($boardLayout as $layout) {
 
-                    $output->writeln($layout['name']);
+                    $output->writeln($layout['name'] . ' (' . count($layout['cards']) . ')');
                     foreach ($layout['cards'] as $layoutCard) {
                         $output->writeln(' ' . $layoutCard);
                     }
