@@ -48,7 +48,6 @@ class ListCardsCommand extends \Cilex\Command\Command
         foreach ($boards as $board) {
 
             if (strtolower($board['name']) == strtolower($boardName)) {
-                $output->writeln($boardName . PHP_EOL);
 
                 $boardLayout = [];
 
@@ -62,6 +61,7 @@ class ListCardsCommand extends \Cilex\Command\Command
 
                 $cards = $client->getCards($board['id']);
 
+                $output->writeln($boardName . ' (' . count($cards) . ')' . PHP_EOL);
                 foreach ($cards as $card) {
                     $cardName = $card['name'];
 
