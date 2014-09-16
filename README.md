@@ -1,7 +1,7 @@
-trello-cli
-==============
+Trello CLI
+==========
 
-Small Trello cli application for creating sprint boards based and management tools. It isn't intended to be a full wrapper around the Trello API, but some simply tools to automate sprint management in a Scrum environment.
+Small Trello cli application for creating sprint boards based and management tools. It isn't intended to be a full wrapper around the Trello API, but some simple tools to automate sprint management in a Scrum team.
 
 * You will need to generate an application key/secret pair and generate a config file
 * It runs on php, you will need at least php 5.4 and composer
@@ -11,3 +11,25 @@ Small Trello cli application for creating sprint boards based and management too
 It doesn't
 * Add team members to the board, you will have to remember, although I may implement this
 * Add all the columns you want. Again, may add this, and have a config array of columns to create
+
+
+Installation
+------------
+
+```bash
+$ git clone git@github.com:benmatselby/trello-cli.git
+$ cd trello-cli
+$ make clean install
+```
+
+
+Usage
+-----
+
+List all the cards on a board
+
+```bash
+$ bin/trello.php -s cards "Board Name"
+```
+
+
