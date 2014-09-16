@@ -156,4 +156,38 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
         $this->assertEquals(['list'], $result);
     }
+
+    /**
+     * @covers \TrelloCli\Client::__construct
+     * @covers \TrelloCli\Client::getMember
+     */
+    public function testThatGetMeberCallsTheMembersEndPointGivenTheMeberId()
+    {
+        $container = [];
+
+        $response = $this->getMock(
+            '\stdClass',
+            array('json')
+        );
+        $response
+            ->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(['member']));
+
+        $http = $this->getMock(
+            '\stdClass',
+            array('get')
+        );
+
+        $http
+            ->expects($this->once())
+            ->method('get')
+            ->with('/1/members/1234')
+            ->will($this->returnValue($response));
+
+        $trello = new Client($container, $http);
+        $result = $trello->getMember('1234');
+
+        $this->assertEquals(['member'], $result);
+    }
 }

@@ -12,5 +12,6 @@ require __DIR__ . '/../config/config.php';
 
 $app->command(new \TrelloCli\Command\ListCardsCommand());
 $app->command(new \TrelloCli\Command\ListBoardsCommand());
+$app->command(new \TrelloCli\Command\ListPeopleCommand());
 $app->command(new \TrelloCli\Command\CreateBoardCommand());
 $app->run();

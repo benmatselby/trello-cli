@@ -101,4 +101,19 @@ class Client
 
         return $lists;
     }
+
+    /**
+     * Getter for member information
+     *
+     * @param int $memberId The member id
+     *
+     * @return array
+     */
+    public function getMember($memberId)
+    {
+        $memberResponse = $this->httpClient->get('/1/members/' . $memberId);
+        $member = $memberResponse->json();
+
+        return $member;
+    }
 }
