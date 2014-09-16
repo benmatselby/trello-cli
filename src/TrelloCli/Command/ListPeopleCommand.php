@@ -26,7 +26,8 @@ class ListPeopleCommand extends \Cilex\Command\Command
         $this
             ->setName('people')
             ->setDescription('List the people on a board and the cards they have assigned to them')
-            ->addArgument('board-name', InputArgument::REQUIRED, 'The board name');
+            ->addArgument('board-name', InputArgument::REQUIRED, 'The board name')
+            ->addOption('hide-cards', 's', InputOption::VALUE_NONE, 'Hide the cards, to give just an overview');
     }
 
     /**
@@ -38,6 +39,7 @@ class ListPeopleCommand extends \Cilex\Command\Command
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $boardName = $input->getArgument('board-name');
+        $hideCards = $input->getOption('hide-cards');
 
         $client = new \TrelloCli\Client($this->getContainer());
         $boards = $client->getBoards();
@@ -80,8 +82,10 @@ class ListPeopleCommand extends \Cilex\Command\Command
 
                         $output->writeln(' ' . $lists[$listId] . ' [' . count($listCards) . ']');
 
-                        foreach ($listCards as $c) {
-                            $output->writeln('  ' . $c['name']);
+                        if (!$hideCards) {
+                            foreach ($listCards as $c) {
+                                $output->writeln('  ' . $c['name']);
+                            }
                         }
                     }
                     $output->writeln('');
