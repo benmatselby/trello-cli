@@ -1,6 +1,8 @@
 Trello CLI
 ==========
 
+[![Build Status](https://travis-ci.org/benmatselby/trello-cli.png?branch=master)](https://travis-ci.org/benmatselby/trello-cli)
+
 Small Trello cli application for creating sprint boards based and management tools. It isn't intended to be a full wrapper around the Trello API, but some simple tools to automate sprint management in a Scrum team.
 
 * You will need to generate an application key/secret pair and generate a config file
