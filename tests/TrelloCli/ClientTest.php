@@ -91,6 +91,64 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \TrelloCli\Client::__construct
+     * @covers \TrelloCli\Client::getBoardByName
+     * @dataProvider provideDataForBoardByName
+     */
+    public function testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches($boardName, $boards, $expected)
+    {
+        $container = [];
+
+        $response = $this->getMock(
+            '\stdClass',
+            array('json')
+        );
+        $response
+            ->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue($boards));
+
+        $http = $this->getMock(
+            '\stdClass',
+            array('get')
+        );
+
+        $http
+            ->expects($this->once())
+            ->method('get')
+            ->with('/1/members/me/boards')
+            ->will($this->returnValue($response));
+
+        $trello = new Client($container, $http);
+        $result = $trello->getBoardByName($boardName);
+
+        $this->assertEquals($expected, $result);
+    }
+
+    public function provideDataForBoardByName()
+    {
+        return [
+            'Standard name check' => [
+                'myBoard',
+                [['name' => 'random'], ['name' => 'myBoard']],
+                ['name' => 'myBoard']
+            ],
+
+            'Casing changes, but board returned' => [
+                'myboard',
+                [['name' => 'random'], ['name' => 'MYBOARD']],
+                ['name' => 'MYBOARD']
+            ],
+
+            'No match' => [
+                'randomboard-does-not-match',
+                [['name' => 'random'], ['name' => 'MYBOARD']],
+                null
+            ],
+        ];
+    }
+
+    /**
+     * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getCards
      */
     public function testThatGetCardsCallsTheBoardsEndPointGivenTheBoardId()

@@ -41,48 +41,38 @@ class ListCardsCommand extends \Cilex\Command\Command
         $stripStoryPoints = $input->getOption('strip-scrum-for-trello');
 
         $client = new \TrelloCli\Client($this->getContainer());
+        $board = $client->getBoardByName($boardName);
 
-        $boards = $client->getBoards();
-        $output->writeln('Boards found: ' . count($boards));
+        $boardLayout = [];
 
-        foreach ($boards as $board) {
+        $lists = $client->getLists($board['id']);
+        foreach ($lists as $list) {
+            $boardLayout[$list['id']] = [
+                'name' => $list['name'],
+                'cards' => []
+            ];
+        }
 
-            if (strtolower($board['name']) == strtolower($boardName)) {
+        $cards = $client->getCards($board['id']);
 
-                $boardLayout = [];
+        $output->writeln($boardName . ' (' . count($cards) . ')' . PHP_EOL);
+        foreach ($cards as $card) {
+            $cardName = $card['name'];
 
-                $lists = $client->getLists($board['id']);
-                foreach ($lists as $list) {
-                    $boardLayout[$list['id']] = [
-                        'name' => $list['name'],
-                        'cards' => []
-                    ];
-                }
-
-                $cards = $client->getCards($board['id']);
-
-                $output->writeln($boardName . ' (' . count($cards) . ')' . PHP_EOL);
-                foreach ($cards as $card) {
-                    $cardName = $card['name'];
-
-                    if ($stripStoryPoints) {
-                        $cardName = preg_replace('/^\(.+\)/', '', $cardName);
-                    }
-
-                    $boardLayout[$card['idList']]['cards'][] = ltrim($cardName);
-                }
-
-                foreach ($boardLayout as $layout) {
-
-                    $output->writeln($layout['name'] . ' (' . count($layout['cards']) . ')');
-                    foreach ($layout['cards'] as $layoutCard) {
-                        $output->writeln(' ' . $layoutCard);
-                    }
-                    $output->writeln('');
-                }
-
-                break;
+            if ($stripStoryPoints) {
+                $cardName = preg_replace('/^\(.+\)/', '', $cardName);
             }
+
+            $boardLayout[$card['idList']]['cards'][] = ltrim($cardName);
+        }
+
+        foreach ($boardLayout as $layout) {
+
+            $output->writeln($layout['name'] . ' (' . count($layout['cards']) . ')');
+            foreach ($layout['cards'] as $layoutCard) {
+                $output->writeln(' ' . $layoutCard);
+            }
+            $output->writeln('');
         }
     }
 }

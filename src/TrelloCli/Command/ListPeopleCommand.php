@@ -42,57 +42,49 @@ class ListPeopleCommand extends \Cilex\Command\Command
         $hideCards = $input->getOption('hide-cards');
 
         $client = new \TrelloCli\Client($this->getContainer());
-        $boards = $client->getBoards();
+        $board = $client->getBoardByName($boardName);
 
-        foreach ($boards as $board) {
+        $members = [];
+        $lists = [];
+        $boardLists = $client->getLists($board['id']);
 
-            if (strtolower($board['name']) == strtolower($boardName)) {
+        foreach ($boardLists as $boardList) {
+            $lists[$boardList['id']] = $boardList['name'];
+        }
 
-                $members = [];
-                $lists = [];
-                $boardLists = $client->getLists($board['id']);
+        foreach ($board['memberships'] as $membership) {
+            $member = $client->getMember($membership['idMember']);
+            $members[$member['id']]['name'] = $member['fullName'];
+            $members[$member['id']]['cards'] = [];
+            $members[$member['id']]['cardCount'] = 0;
+        }
 
-                foreach ($boardLists as $boardList) {
-                    $lists[$boardList['id']] = $boardList['name'];
-                }
+        $cards = $client->getCards($board['id']);
 
-                foreach ($board['memberships'] as $membership) {
-                    $member = $client->getMember($membership['idMember']);
-                    $members[$member['id']]['name'] = $member['fullName'];
-                    $members[$member['id']]['cards'] = [];
-                    $members[$member['id']]['cardCount'] = 0;
-                }
+        foreach ($cards as $card) {
 
-                $cards = $client->getCards($board['id']);
+            foreach ($card['idMembers'] as $cardMemberId) {
 
-                foreach ($cards as $card) {
-
-                    foreach ($card['idMembers'] as $cardMemberId) {
-
-                        $members[$cardMemberId]['cards'][$card['idList']][] = $card;
-                        $members[$cardMemberId]['cardCount'] = (int) $members[$cardMemberId]['cardCount'] + 1;
-                    }
-                }
-
-                foreach ($members as $member) {
-
-                    $output->writeln($member['name'] . ' [' . $member['cardCount'] . ']');
-
-                    foreach ($member['cards'] as $listId => $listCards) {
-
-                        $output->writeln(' ' . $lists[$listId] . ' [' . count($listCards) . ']');
-
-                        if (!$hideCards) {
-                            foreach ($listCards as $c) {
-                                $output->writeln('  ' . $c['name']);
-                            }
-                        }
-                    }
-                    $output->writeln('');
-                }
-
-                break;
+                $members[$cardMemberId]['cards'][$card['idList']][] = $card;
+                $members[$cardMemberId]['cardCount'] = (int) $members[$cardMemberId]['cardCount'] + 1;
             }
+        }
+
+        foreach ($members as $member) {
+
+            $output->writeln($member['name'] . ' [' . $member['cardCount'] . ']');
+
+            foreach ($member['cards'] as $listId => $listCards) {
+
+                $output->writeln(' ' . $lists[$listId] . ' [' . count($listCards) . ']');
+
+                if (!$hideCards) {
+                    foreach ($listCards as $c) {
+                        $output->writeln('  ' . $c['name']);
+                    }
+                }
+            }
+            $output->writeln('');
         }
     }
 }

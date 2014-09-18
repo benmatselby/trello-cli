@@ -73,6 +73,27 @@ class Client
     }
 
     /**
+     * Getter for a board, given a name
+     *
+     * @param string $name The name of the board we want
+     *
+     * @return array|null
+     */
+    public function getBoardByName($name)
+    {
+        $boards = $this->getBoards();
+
+        foreach ($boards as $board) {
+
+            if (strtolower($board['name']) == strtolower($name)) {
+                return $board;
+            }
+        }
+
+        return null;
+    }
+
+    /**
      * Getter for the cards from a given board
      *
      * @param int $boardId Id of the board which the cards are on
