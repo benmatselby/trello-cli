@@ -60,7 +60,7 @@ class ListCardsCommand extends \Cilex\Command\Command
             $cardName = $card['name'];
 
             if ($stripStoryPoints) {
-                $cardName = preg_replace('/^\(.+\)/', '', $cardName);
+                $cardName = preg_replace('/^\(.+?\)/', '', $cardName);
             }
 
             $boardLayout[$card['idList']]['cards'][] = ltrim($cardName);
