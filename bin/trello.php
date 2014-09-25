@@ -14,4 +14,5 @@ $app->command(new \TrelloCli\Command\ListCardsCommand());
 $app->command(new \TrelloCli\Command\ListBoardsCommand());
 $app->command(new \TrelloCli\Command\ListPeopleCommand());
 $app->command(new \TrelloCli\Command\CreateBoardCommand());
+$app->command(new \TrelloCli\Command\LabelCardsCommand());
 $app->run();
