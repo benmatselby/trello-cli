@@ -26,7 +26,8 @@ class ListCardsCommand extends \Cilex\Command\Command
             ->setName('cards')
             ->setDescription('List all cards for a board')
             ->addArgument('board-name', InputArgument::REQUIRED, 'The board name')
-            ->addOption('strip-scrum-for-trello', 's', InputOption::VALUE_NONE, 'Do we strip () from the start of the name');
+            ->addOption('strip-scrum-for-trello', 's', InputOption::VALUE_NONE, 'Do we strip () from the start of the name')
+            ->addOption('ignore-tags', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'List of tags to ignore', []);
     }
 
     /**
@@ -39,6 +40,7 @@ class ListCardsCommand extends \Cilex\Command\Command
     {
         $boardName = $input->getArgument('board-name');
         $stripStoryPoints = $input->getOption('strip-scrum-for-trello');
+        $ignoreTags = $input->getOption('ignore-tags');
 
         $client = new \TrelloCli\Client($this->getContainer());
         $board = $client->getBoardByName($boardName);
@@ -57,6 +59,21 @@ class ListCardsCommand extends \Cilex\Command\Command
 
         $output->writeln($boardName . ' (' . count($cards) . ')' . PHP_EOL);
         foreach ($cards as $card) {
+
+            $addCard = true;
+            if (!empty($ignoreTags)) {
+                foreach ($card['labels'] as $cardLabel) {
+                    if (in_array($cardLabel['name'], $ignoreTags)) {
+                        $addCard = false;
+                        break;
+                    }
+                }
+            }
+
+            if (!$addCard) {
+                continue;
+            }
+
             $cardName = $card['name'];
 
             if ($stripStoryPoints) {
