@@ -80,7 +80,7 @@ class ListCardsCommand extends \Cilex\Command\Command
                 $cardName = preg_replace('/^\(.+?\)/', '', $cardName);
             }
 
-            $boardLayout[$card['idList']]['cards'][] = ltrim($cardName);
+            $boardLayout[$card['idList']]['cards'][] = trim($cardName);
         }
 
         foreach ($boardLayout as $layout) {

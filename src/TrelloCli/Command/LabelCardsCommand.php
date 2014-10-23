@@ -59,7 +59,7 @@ class LabelCardsCommand extends \Cilex\Command\Command
         foreach ($cards as $card) {
             $cardName = $card['name'];
             foreach ($card['labels'] as $cardLabel) {
-                $boardLayout[$cardLabel['color']]['cards'][] = ltrim($cardName);
+                $boardLayout[$cardLabel['color']]['cards'][] = trim($cardName);
             }
         }
 
