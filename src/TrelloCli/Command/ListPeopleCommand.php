@@ -57,6 +57,7 @@ class ListPeopleCommand extends \Cilex\Command\Command
             $members[$member['id']]['name'] = $member['fullName'];
             $members[$member['id']]['cards'] = [];
             $members[$member['id']]['cardCount'] = 0;
+            $members[$member['id']]['storyPoints'] = 0;
         }
 
         $cards = $client->getCards($board['id']);
@@ -67,12 +68,21 @@ class ListPeopleCommand extends \Cilex\Command\Command
 
                 $members[$cardMemberId]['cards'][$card['idList']][] = $card;
                 $members[$cardMemberId]['cardCount'] = (int) $members[$cardMemberId]['cardCount'] + 1;
+
+                preg_match('/^\((.+?)\)/', $card['name'], $points);
+
+                if (!empty($points) && isset($points[1])) {
+                    $members[$cardMemberId]['storyPoints'] = (float) $members[$cardMemberId]['storyPoints'] + $points[1];
+                }
+
             }
         }
 
         foreach ($members as $member) {
 
-            $output->writeln($member['name'] . ' [' . $member['cardCount'] . ']');
+            $output->writeln($member['name']);
+            $output->writeln(" Story Points [" . $member['storyPoints'] . "]");
+            $output->writeln(" Cards [" . $member['cardCount'] . "]");
 
             foreach ($member['cards'] as $listId => $listCards) {
 
