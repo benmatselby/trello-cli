@@ -5,10 +5,10 @@
 
 namespace TrelloCli\Command;
 
-use Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console\Input\InputInterface,
-    Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
 
 /**
  * List cards command
@@ -57,9 +57,8 @@ class ListCardsCommand extends \Cilex\Command\Command
 
         $cards = $client->getCards($board['id']);
 
-        $output->writeln($boardName . ' (' . count($cards) . ')' . PHP_EOL);
+        $actualCards = 0;
         foreach ($cards as $card) {
-
             $addCard = true;
             if (!empty($ignoreTags)) {
                 foreach ($card['labels'] as $cardLabel) {
@@ -73,6 +72,7 @@ class ListCardsCommand extends \Cilex\Command\Command
             if (!$addCard) {
                 continue;
             }
+            $actualCards++;
 
             $cardName = $card['name'];
 
@@ -83,8 +83,8 @@ class ListCardsCommand extends \Cilex\Command\Command
             $boardLayout[$card['idList']]['cards'][] = trim($cardName);
         }
 
+        $output->writeln($boardName . ' (' . $actualCards . ')' . PHP_EOL);
         foreach ($boardLayout as $layout) {
-
             $output->writeln($layout['name'] . ' (' . count($layout['cards']) . ')');
             foreach ($layout['cards'] as $layoutCard) {
                 $output->writeln(' ' . $layoutCard);
