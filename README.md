@@ -3,7 +3,7 @@ Trello CLI
 
 [![Build Status](https://travis-ci.org/benmatselby/trello-cli.png?branch=master)](https://travis-ci.org/benmatselby/trello-cli)
 
-mall Trello CLI application for managing a the Trello board in a SCRUM environment. It isn't intended to be a full wrapper around the Trello API, but some simple tools to automate sprint management and artefacts should as the CHANGELOG.
+Small Trello CLI application for managing a the Trello board in a SCRUM environment. It isn't intended to be a full wrapper around the Trello API, but some simple tools to automate sprint management and artefacts such as the CHANGELOG.
 
 * You will need to generate an application key/secret pair and generate a config file
 * It runs on php, you will need at least php 5.4 and composer
