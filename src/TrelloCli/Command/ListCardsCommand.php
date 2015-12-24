@@ -83,13 +83,19 @@ class ListCardsCommand extends \Cilex\Command\Command
             $boardLayout[$card['idList']]['cards'][] = trim($cardName);
         }
 
-        $output->writeln($boardName . ' (' . $actualCards . ')' . PHP_EOL);
+        $boardName = $boardName . ' (' . $actualCards . ')' ;
+        $output->writeln($boardName);
+        $output->writeln(str_repeat("=", strlen($boardName)) . PHP_EOL);
+
         foreach ($boardLayout as $layout) {
-            $output->writeln($layout['name'] . ' (' . count($layout['cards']) . ')');
+            $listName = $layout['name'] . ' (' . count($layout['cards']) . ')';
+            $output->writeln($listName);
+            $output->writeln(str_repeat("=", strlen($listName)) . PHP_EOL);
+
             foreach ($layout['cards'] as $layoutCard) {
-                $output->writeln(' ' . $layoutCard);
+                $output->writeln('* ' . $layoutCard);
             }
-            $output->writeln('');
+            $output->writeln('' . PHP_EOL);
         }
     }
 }
