@@ -183,6 +183,108 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \TrelloCli\Client::__construct
+     * @covers \TrelloCli\Client::getCardChecklist
+     */
+    public function testThatGetCardChecklistCallsTheCardChecklistEndPointWithCardId()
+    {
+        $container = [];
+
+        $response = $this->getMock(
+            '\stdClass',
+            array('json')
+        );
+        $response
+            ->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(['card']));
+
+        $http = $this->getMock(
+            '\stdClass',
+            array('get')
+        );
+
+        $http
+            ->expects($this->once())
+            ->method('get')
+            ->with('/1/cards/1234/checklists')
+            ->will($this->returnValue($response));
+
+        $trello = new Client($container, $http);
+        $result = $trello->getCardChecklist('1234');
+
+        $this->assertEquals(['card'], $result);
+    }
+
+    /**
+     * @covers \TrelloCli\Client::__construct
+     * @covers \TrelloCli\Client::getCardActions
+     */
+    public function testThatGetCardActionsCallsTheCardActionsEndPointWithCardId()
+    {
+        $container = [];
+
+        $response = $this->getMock(
+            '\stdClass',
+            array('json')
+        );
+        $response
+            ->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(['card']));
+
+        $http = $this->getMock(
+            '\stdClass',
+            array('get')
+        );
+
+        $http
+            ->expects($this->once())
+            ->method('get')
+            ->with('/1/cards/1234/actions')
+            ->will($this->returnValue($response));
+
+        $trello = new Client($container, $http);
+        $result = $trello->getCardActions('1234');
+
+        $this->assertEquals(['card'], $result);
+    }
+
+    /**
+     * @covers \TrelloCli\Client::__construct
+     * @covers \TrelloCli\Client::getCardMembers
+     */
+    public function testThatGetCardMembersCallsTheCardMembersEndPointWithCardId()
+    {
+        $container = [];
+
+        $response = $this->getMock(
+            '\stdClass',
+            array('json')
+        );
+        $response
+            ->expects($this->once())
+            ->method('json')
+            ->will($this->returnValue(['card']));
+
+        $http = $this->getMock(
+            '\stdClass',
+            array('get')
+        );
+
+        $http
+            ->expects($this->once())
+            ->method('get')
+            ->with('/1/cards/1234/members')
+            ->will($this->returnValue($response));
+
+        $trello = new Client($container, $http);
+        $result = $trello->getCardMembers('1234');
+
+        $this->assertEquals(['card'], $result);
+    }
+
+    /**
+     * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getLists
      */
     public function testThatGetListsCallsTheBoardsEndPointGivenTheBoardId()
