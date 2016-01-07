@@ -109,6 +109,46 @@ class Client
     }
 
     /**
+     * Getter for the checklists from a given card
+     *
+     * @param int $cardId Id of the card
+     *
+     * @return array
+     */
+    public function getCardChecklist($cardId)
+    {
+        $response = $this->httpClient->get('/1/cards/' . $cardId . '/checklists');
+        return $response->json();
+    }
+
+    /**
+     * Getter for the actions from a given card
+     *
+     * @param int $cardId Id of the card
+     *
+     * @return array
+     */
+    public function getCardActions($cardId)
+    {
+        $response = $this->httpClient->get('/1/cards/' . $cardId . '/actions');
+        return $response->json();
+    }
+
+    /**
+     * Getter for the members from a given card
+     *
+     * @param int $cardId Id of the card
+     *
+     * @return array
+     */
+    public function getCardMembers($cardId)
+    {
+        $response = $this->httpClient->get('/1/cards/' . $cardId . '/members');
+        return $response->json();
+    }
+
+
+    /**
      * Getter for the lists from a given board
      *
      * @param int $boardId Id of the board which the lists are defined

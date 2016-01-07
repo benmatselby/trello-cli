@@ -59,7 +59,6 @@ class JsonExportBoardCommand extends \Cilex\Command\Command
             $boards[] = $this->buildBoard($boardName);
         }
 
-
         $output->writeln(json_encode($boards));
     }
 
@@ -90,6 +89,9 @@ class JsonExportBoardCommand extends \Cilex\Command\Command
         $cards = $this->client->getCards($board['id']);
 
         foreach ($cards as $card) {
+            $card['checklists'] = $this->client->getCardChecklist($card['id']);
+            $card['actions'] = $this->client->getCardActions($card['id']);
+            $card['members'] = $this->client->getCardMembers($card['id']);
             $boardLists[$card['idList']]['cards'][] = $card;
         }
 
