@@ -18,6 +18,13 @@ use Symfony\Component\Console\Output\OutputInterface;
 class JsonExportBoardCommand extends \Cilex\Command\Command
 {
     /**
+     * The Trello Client
+     *
+     * @var \TrelloCli\Client
+     */
+    protected $client;
+
+    /**
      * Configure the command
      */
     protected function configure()
@@ -25,7 +32,12 @@ class JsonExportBoardCommand extends \Cilex\Command\Command
         $this
             ->setName('board-export-json')
             ->setDescription('List all cards for a board')
-            ->addArgument('board-name', InputArgument::REQUIRED, 'The board name');
+            ->addOption(
+                'board',
+                null,
+                InputOption::VALUE_IS_ARRAY | InputOption::VALUE_REQUIRED,
+                'The board you want to export'
+            );
     }
 
     /**
@@ -38,27 +50,51 @@ class JsonExportBoardCommand extends \Cilex\Command\Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $boardName = $input->getArgument('board-name');
+        $boardNames = $input->getOption('board');
 
-        $client = new \TrelloCli\Client($this->getContainer());
-        $board = $client->getBoardByName($boardName);
+        $this->client = new \TrelloCli\Client($this->getContainer());
+        $boards = [];
 
-        $boardLayout = [];
+        foreach ($boardNames as $boardName) {
+            $boards[] = $this->buildBoard($boardName);
+        }
 
-        $lists = $client->getLists($board['id']);
+
+        $output->writeln(json_encode($boards));
+    }
+
+    /**
+     * Build the data on the board
+     *
+     * @param string $boardName The board name of the board we want to collate data for
+     *
+     * @return array
+     */
+    protected function buildBoard($boardName)
+    {
+        $board = $this->client->getBoardByName($boardName);
+
+        $boardLayout = [
+            'name' => $boardName
+        ];
+
+        $boardLists = [];
+        $lists = $this->client->getLists($board['id']);
         foreach ($lists as $list) {
-            $boardLayout[$list['id']] = [
+            $boardLists[$list['id']] = [
                 'name' => $list['name'],
                 'cards' => []
             ];
         }
 
-        $cards = $client->getCards($board['id']);
+        $cards = $this->client->getCards($board['id']);
 
         foreach ($cards as $card) {
-            $boardLayout[$card['idList']]['cards'][] = $card;
+            $boardLists[$card['idList']]['cards'][] = $card;
         }
 
-        $output->writeln(json_encode($boardLayout));
+        $boardLayout['lists'] = $boardLists;
+
+        return $boardLayout;
     }
 }
