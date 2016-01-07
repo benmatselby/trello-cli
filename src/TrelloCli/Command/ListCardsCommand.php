@@ -76,6 +76,11 @@ class ListCardsCommand extends \Cilex\Command\Command
 
             $cardName = $card['name'];
 
+            if (!empty($card['badges']['due'])) {
+                $due = new \DateTime($card['badges']['due']);
+                $cardName = $cardName . ' (Due: ' . $due->format('d-m-Y H:i:s') . ')';
+            }
+
             if ($stripStoryPoints) {
                 $cardName = preg_replace('/^\(.+?\)/', '', $cardName);
             }
