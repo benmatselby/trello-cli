@@ -20,28 +20,25 @@ class Client
     protected $container;
 
     /**
-     * GuzzleHttp client
+     * GuzzleHttp\Client client
      */
     protected $httpClient;
 
     /**
      * Constructor
      *
-     * @param CilexApplication $container Application container
+     * @param \Cilex\Application $container Application container
      */
     public function __construct($container, $httpClient = null)
     {
         $this->container = $container;
 
         if ($httpClient === null) {
-
             $httpClient = new HttpClient([
-                'base_url' => 'https://api.trello.com/',
-                'defaults' => [
-                    'query' => [
-                        'key' => $this->container['trello.cli.config']['trello']['key'],
-                        'token' => $this->container['trello.cli.config']['trello']['secret']
-                    ]
+                'base_uri' => 'https://api.trello.com',
+                'query' => [
+                    'key' => $this->container['trello.cli.config']['trello']['key'],
+                    'token' => $this->container['trello.cli.config']['trello']['secret']
                 ]
             ]);
         }
@@ -52,7 +49,7 @@ class Client
     /**
      * Getter for the HTTPClient
      *
-     * @return GuzzleHttp
+     * @return \GuzzleHttp\Client
      */
     public function getHttpClient()
     {
@@ -66,10 +63,8 @@ class Client
      */
     public function getBoards()
     {
-        $boardsResponse = $this->httpClient->get('/1/members/me/boards');
-        $boards = $boardsResponse->json();
-
-        return $boards;
+        $response = $this->httpClient->get('/1/members/me/boards');
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -84,7 +79,6 @@ class Client
         $boards = $this->getBoards();
 
         foreach ($boards as $board) {
-
             if (strtolower($board['name']) == strtolower($name)) {
                 return $board;
             }
@@ -102,10 +96,8 @@ class Client
      */
     public function getCards($boardId)
     {
-        $cardsResponse = $this->httpClient->get('/1/boards/' . $boardId . '/cards');
-        $cards = $cardsResponse->json();
-
-        return $cards;
+        $response = $this->httpClient->get('/1/boards/' . $boardId . '/cards');
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -118,7 +110,7 @@ class Client
     public function getCardChecklist($cardId)
     {
         $response = $this->httpClient->get('/1/cards/' . $cardId . '/checklists');
-        return $response->json();
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -131,7 +123,7 @@ class Client
     public function getCardActions($cardId)
     {
         $response = $this->httpClient->get('/1/cards/' . $cardId . '/actions');
-        return $response->json();
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -144,7 +136,7 @@ class Client
     public function getCardMembers($cardId)
     {
         $response = $this->httpClient->get('/1/cards/' . $cardId . '/members');
-        return $response->json();
+        return json_decode($response->getBody(), true);
     }
 
 
@@ -157,10 +149,8 @@ class Client
      */
     public function getLists($boardId)
     {
-        $listsResponse = $this->httpClient->get('/1/boards/' . $boardId . '/lists');
-        $lists = $listsResponse->json();
-
-        return $lists;
+        $response = $this->httpClient->get('/1/boards/' . $boardId . '/lists');
+        return json_decode($response->getBody(), true);
     }
 
     /**
@@ -172,9 +162,7 @@ class Client
      */
     public function getMember($memberId)
     {
-        $memberResponse = $this->httpClient->get('/1/members/' . $memberId);
-        $member = $memberResponse->json();
-
-        return $member;
+        $response = $this->httpClient->get('/1/members/' . $memberId);
+        return json_decode($response->getBody(), true);
     }
 }

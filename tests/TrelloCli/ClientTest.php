@@ -6,7 +6,6 @@
 namespace TrelloCli\Test;
 
 use TrelloCli\Client;
-use GuzzleHttp\Client as HttpClient;
 
 /**
  * Trello Client Test Class
@@ -35,47 +34,25 @@ class ClientTest extends \PHPUnit_Framework_TestCase
 
     /**
      * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getHttpClient
-     */
-    public function testThatTheConstructorSetsADefaultHttpClientIfNonePassedIn()
-    {
-        $container = array(
-            'trello.cli.config' => [
-                'trello' => [
-                    'key'    => 'aKey',
-                    'secret' => 'aSecret',
-                ]
-            ]
-        );
-
-        $trello = new Client($container);
-
-        $actualClient = $trello->getHttpClient();
-
-        $this->assertEquals('https://api.trello.com/', $actualClient->getBaseUrl());
-    }
-
-    /**
-     * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getBoards
      */
     public function testThatGetBoardsCallsTheBoardsEndPointForMe()
     {
         $container = [];
 
-        $response = $this->getMock(
-            '\stdClass',
-            array('json')
-        );
+        $response = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['getBody'])
+            ->getMock();
         $response
             ->expects($this->once())
-            ->method('json')
-            ->will($this->returnValue(['board']));
+            ->method('getBody')
+            ->will($this->returnValue('["board"]'));
 
-        $http = $this->getMock(
-            '\stdClass',
-            array('get')
-        );
+        $http = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['get'])
+            ->getMock();
 
         $http
             ->expects($this->once())
@@ -98,19 +75,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $container = [];
 
-        $response = $this->getMock(
-            '\stdClass',
-            array('json')
-        );
+        $response = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['getBody'])
+            ->getMock();
         $response
             ->expects($this->once())
-            ->method('json')
+            ->method('getBody')
             ->will($this->returnValue($boards));
 
-        $http = $this->getMock(
-            '\stdClass',
-            array('get')
-        );
+        $http = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['get'])
+            ->getMock();
 
         $http
             ->expects($this->once())
@@ -129,19 +106,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
         return [
             'Standard name check' => [
                 'myBoard',
-                [['name' => 'random'], ['name' => 'myBoard']],
+                '[{"name":"random"},{"name":"myBoard"}]',
                 ['name' => 'myBoard']
             ],
 
             'Casing changes, but board returned' => [
                 'myboard',
-                [['name' => 'random'], ['name' => 'MYBOARD']],
+                '[{"name":"random"},{"name":"MYBOARD"}]',
                 ['name' => 'MYBOARD']
             ],
 
             'No match' => [
                 'randomboard-does-not-match',
-                [['name' => 'random'], ['name' => 'MYBOARD']],
+                '[{"name":"random"},{"name":"MYBOARD"}]',
                 null
             ],
         ];
@@ -155,19 +132,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $container = [];
 
-        $response = $this->getMock(
-            '\stdClass',
-            array('json')
-        );
+        $response = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['getBody'])
+            ->getMock();
         $response
             ->expects($this->once())
-            ->method('json')
-            ->will($this->returnValue(['card']));
+            ->method('getBody')
+            ->will($this->returnValue('["card"]'));
 
-        $http = $this->getMock(
-            '\stdClass',
-            array('get')
-        );
+        $http = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['get'])
+            ->getMock();
 
         $http
             ->expects($this->once())
@@ -189,19 +166,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $container = [];
 
-        $response = $this->getMock(
-            '\stdClass',
-            array('json')
-        );
+        $response = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['getBody'])
+            ->getMock();
         $response
             ->expects($this->once())
-            ->method('json')
-            ->will($this->returnValue(['card']));
+            ->method('getBody')
+            ->will($this->returnValue('["card"]'));
 
-        $http = $this->getMock(
-            '\stdClass',
-            array('get')
-        );
+        $http = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['get'])
+            ->getMock();
 
         $http
             ->expects($this->once())
@@ -223,19 +200,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $container = [];
 
-        $response = $this->getMock(
-            '\stdClass',
-            array('json')
-        );
+        $response = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['getBody'])
+            ->getMock();
         $response
             ->expects($this->once())
-            ->method('json')
-            ->will($this->returnValue(['card']));
+            ->method('getBody')
+            ->will($this->returnValue('["card"]'));
 
-        $http = $this->getMock(
-            '\stdClass',
-            array('get')
-        );
+        $http = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['get'])
+            ->getMock();
 
         $http
             ->expects($this->once())
@@ -257,19 +234,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $container = [];
 
-        $response = $this->getMock(
-            '\stdClass',
-            array('json')
-        );
+        $response = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['getBody'])
+            ->getMock();
         $response
             ->expects($this->once())
-            ->method('json')
-            ->will($this->returnValue(['card']));
+            ->method('getBody')
+            ->will($this->returnValue('["card"]'));
 
-        $http = $this->getMock(
-            '\stdClass',
-            array('get')
-        );
+        $http = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['get'])
+            ->getMock();
 
         $http
             ->expects($this->once())
@@ -291,19 +268,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $container = [];
 
-        $response = $this->getMock(
-            '\stdClass',
-            array('json')
-        );
+        $response = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['getBody'])
+            ->getMock();
         $response
             ->expects($this->once())
-            ->method('json')
-            ->will($this->returnValue(['list']));
+            ->method('getBody')
+            ->will($this->returnValue('["list"]'));
 
-        $http = $this->getMock(
-            '\stdClass',
-            array('get')
-        );
+        $http = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['get'])
+            ->getMock();
 
         $http
             ->expects($this->once())
@@ -325,19 +302,19 @@ class ClientTest extends \PHPUnit_Framework_TestCase
     {
         $container = [];
 
-        $response = $this->getMock(
-            '\stdClass',
-            array('json')
-        );
+        $response = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['getBody'])
+            ->getMock();
         $response
             ->expects($this->once())
-            ->method('json')
-            ->will($this->returnValue(['member']));
+            ->method('getBody')
+            ->will($this->returnValue('["member"]'));
 
-        $http = $this->getMock(
-            '\stdClass',
-            array('get')
-        );
+        $http = $this
+            ->getMockBuilder('\stdClass')
+            ->setMethods(['get'])
+            ->getMock();
 
         $http
             ->expects($this->once())

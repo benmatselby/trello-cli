@@ -4,7 +4,7 @@
 
     "require": {
         "Cilex/Cilex": "1.1.0@stable",
-        "guzzlehttp/guzzle": "4.2.1"
+        "guzzlehttp/guzzle": "6.2.*"
     },
 
     "config": {
