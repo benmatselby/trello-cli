@@ -12,7 +12,7 @@ use TrelloCli\Client;
  *
  * Responsible for testing \TrelloCli\Client
  */
-class ClientTest extends \PHPUnit_Framework_TestCase
+class ClientTest extends \PHPUnit\Framework\TestCase
 {
     /**
      * @covers \TrelloCli\Client::__construct
