@@ -5,17 +5,18 @@
 
 namespace TrelloCli\Command;
 
-use Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console\Input\InputInterface,
-    Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use TrelloCli\Client;
 
 /**
  * List all the cards by label for a given board
  *
  * Responsible for interfacing with the Trello API to get a list of cards and display by the label
  */
-class LabelCardsCommand extends \Cilex\Command\Command
+class LabelCardsCommand extends Command
 {
     /**
      * Configure the command
@@ -33,16 +34,17 @@ class LabelCardsCommand extends \Cilex\Command\Command
      *
      * @param InputInterface  $input  The input from the user
      * @param OutputInterface $output The outputting interface
+     *
+     * @return null|int null or 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $boardName = $input->getArgument('board-name');
 
-        $client = new \TrelloCli\Client($this->getContainer());
+        $client = Client::instance();
         $board = $client->getBoardByName($boardName);
 
         foreach ($board['labelNames'] as $color => $label) {
-
             if ($label == '') {
                 $label = 'Unknown';
             }
@@ -64,7 +66,6 @@ class LabelCardsCommand extends \Cilex\Command\Command
         }
 
         foreach ($boardLayout as $layout) {
-
             $output->writeln($layout['name'] . ' (' . count($layout['cards']) . ')');
             foreach ($layout['cards'] as $layoutCard) {
                 $output->writeln(' ' . $layoutCard);

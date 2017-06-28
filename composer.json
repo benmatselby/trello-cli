@@ -3,8 +3,8 @@
     "description": "Small Trello cli application for creating sprint boards based and management tools",
 
     "require": {
-        "Cilex/Cilex": "1.1.0@stable",
-        "guzzlehttp/guzzle": "6.2.*"
+        "symfony/console": "3.3.*",
+        "guzzlehttp/guzzle": "6.3.*"
     },
 
     "config": {

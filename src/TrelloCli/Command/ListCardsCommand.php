@@ -5,17 +5,19 @@
 
 namespace TrelloCli\Command;
 
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TrelloCli\Client;
 
 /**
  * List cards command
  *
  * Responsible for interfacing with the Trello API to get a list of cards
  */
-class ListCardsCommand extends \Cilex\Command\Command
+class ListCardsCommand extends Command
 {
     /**
      * Configure the command
@@ -26,8 +28,19 @@ class ListCardsCommand extends \Cilex\Command\Command
             ->setName('cards')
             ->setDescription('List all cards for a board')
             ->addArgument('board-name', InputArgument::REQUIRED, 'The board name')
-            ->addOption('strip-scrum-for-trello', 's', InputOption::VALUE_NONE, 'Do we strip () from the start of the name')
-            ->addOption('ignore-tags', null, InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY, 'List of tags to ignore', []);
+            ->addOption(
+                'strip-scrum-for-trello',
+                's',
+                InputOption::VALUE_NONE,
+                'Do we strip () from the start of the name'
+            )
+            ->addOption(
+                'ignore-tags',
+                null,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'List of tags to ignore',
+                []
+            );
     }
 
     /**
@@ -35,6 +48,8 @@ class ListCardsCommand extends \Cilex\Command\Command
      *
      * @param InputInterface  $input  The input from the user
      * @param OutputInterface $output The outputting interface
+     *
+     * @return null|int null or 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -42,7 +57,7 @@ class ListCardsCommand extends \Cilex\Command\Command
         $stripStoryPoints = $input->getOption('strip-scrum-for-trello');
         $ignoreTags = $input->getOption('ignore-tags');
 
-        $client = new \TrelloCli\Client($this->getContainer());
+        $client = Client::instance();
         $board = $client->getBoardByName($boardName);
 
         $boardLayout = [];

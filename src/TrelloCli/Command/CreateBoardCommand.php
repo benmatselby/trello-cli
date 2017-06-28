@@ -5,10 +5,12 @@
 
 namespace TrelloCli\Command;
 
-use Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console\Input\InputInterface,
-    Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use TrelloCli\Client;
 
 /**
  * Create a board in trello
@@ -16,7 +18,7 @@ use Symfony\Component\Console\Input\InputArgument,
  * Responsible for taking a txt file from [location] which is in a tab|csv
  * format and then creating a board
  */
-class CreateBoardCommand extends \Cilex\Command\Command
+class CreateBoardCommand extends Command
 {
     const FORMAT_CSV = 'csv';
     const FORMAT_TAB = 'tab';
@@ -28,7 +30,10 @@ class CreateBoardCommand extends \Cilex\Command\Command
     {
         $this
             ->setName('create')
-            ->setDescription('Create a board based on a file in csv|tab format. Format should be' . PHP_EOL . '           ID, Story Points, Title, Description')
+            ->setDescription(
+                'Create a board based on a file in csv|tab format. Format should be' . PHP_EOL
+                . '           ID, Story Points, Title, Description'
+            )
             ->addArgument('name', InputArgument::REQUIRED, 'The board name')
             ->addArgument('file', InputArgument::OPTIONAL, 'The text file location', '/tmp/trello.txt')
             ->addOption('format', null, InputOption::VALUE_OPTIONAL, 'Format of the input (tab|csv)', self::FORMAT_CSV);
@@ -39,10 +44,12 @@ class CreateBoardCommand extends \Cilex\Command\Command
      *
      * @param InputInterface  $input  The input from the user
      * @param OutputInterface $output The outputting interface
+     *
+     * @return null|int null or 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
-        $client = new \TrelloCli\Client($this->getContainer());
+        $client = Client::instance();
         $http = $client->getHttpClient();
 
         $location = $input->getArgument('file');

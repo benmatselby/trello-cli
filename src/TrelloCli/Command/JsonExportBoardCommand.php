@@ -5,17 +5,18 @@
 
 namespace TrelloCli\Command;
 
-use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use TrelloCli\Client;
 
 /**
  * Json board exporter command
  *
  * Responsible for interfacing with the Trello API to get a JSON export of a board
  */
-class JsonExportBoardCommand extends \Cilex\Command\Command
+class JsonExportBoardCommand extends Command
 {
     /**
      * The Trello Client
@@ -52,7 +53,7 @@ class JsonExportBoardCommand extends \Cilex\Command\Command
     {
         $boardNames = $input->getOption('board');
 
-        $this->client = new \TrelloCli\Client($this->getContainer());
+        $this->client = Client::instance();
         $boards = [];
 
         foreach ($boardNames as $boardName) {

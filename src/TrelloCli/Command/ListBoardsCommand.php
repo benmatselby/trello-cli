@@ -5,17 +5,18 @@
 
 namespace TrelloCli\Command;
 
-use Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console\Input\InputInterface,
-    Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use TrelloCli\Client;
 
 /**
  * List Boards command
  *
  * Responsible for interfacing with the Trello API to get a list of boards
  */
-class ListBoardsCommand extends \Cilex\Command\Command
+class ListBoardsCommand extends Command
 {
     /**
      * Configure the command
@@ -34,13 +35,15 @@ class ListBoardsCommand extends \Cilex\Command\Command
      *
      * @param InputInterface  $input  The input from the user
      * @param OutputInterface $output The outputting interface
+     *
+     * @return null|int null or 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $showCards = $input->getOption('cards');
         $debug = $input->getOption('debug');
 
-        $client = new \TrelloCli\Client($this->getContainer());
+        $client = Client::instance();
         $boards = $client->getBoards();
 
         $output->writeln('Boards found: ' . count($boards) . PHP_EOL);
@@ -56,7 +59,6 @@ class ListBoardsCommand extends \Cilex\Command\Command
                 $cards = $client->getCards($board['id']);
 
                 foreach ($cards as $card) {
-
                     $output->writeln(' ' . $card['name']);
 
                     if ($debug) {

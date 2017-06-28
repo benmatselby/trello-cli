@@ -25,25 +25,47 @@ class Client
     protected $httpClient;
 
     /**
-     * Constructor
-     *
-     * @param \Cilex\Application $container Application container
+     * Trello Singleton
      */
-    public function __construct($container, $httpClient = null)
-    {
-        $this->container = $container;
+    protected static $instance;
 
-        if ($httpClient === null) {
+    /**
+     * Constructor
+     */
+    public function __construct($httpClient = null)
+    {
+        $this->httpClient = $httpClient;
+    }
+
+    /**
+     * Singleton for the Trello Client
+     *
+     * @param array $config The configuration we need to spike the client
+     *
+     * @return Client
+     */
+    public static function instance(array $config = [])
+    {
+        if (self::$instance == null) {
             $httpClient = new HttpClient([
                 'base_uri' => 'https://api.trello.com',
                 'query' => [
-                    'key' => $this->container['trello.cli.config']['trello']['key'],
-                    'token' => $this->container['trello.cli.config']['trello']['secret']
+                    'key' => $config['key'],
+                    'token' => $config['secret']
                 ]
             ]);
+            self::$instance = new self($httpClient);
         }
 
-        $this->httpClient = $httpClient;
+        return self::$instance;
+    }
+
+    /**
+     * Reset the singleton
+     */
+    public static function resetInstance()
+    {
+        self::$instance = null;
     }
 
     /**

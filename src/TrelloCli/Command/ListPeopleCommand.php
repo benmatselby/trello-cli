@@ -5,10 +5,12 @@
 
 namespace TrelloCli\Command;
 
-use Symfony\Component\Console\Input\InputArgument,
-    Symfony\Component\Console\Input\InputOption,
-    Symfony\Component\Console\Input\InputInterface,
-    Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Command\Command;
+use Symfony\Component\Console\Input\InputArgument;
+use Symfony\Component\Console\Input\InputOption;
+use Symfony\Component\Console\Input\InputInterface;
+use Symfony\Component\Console\Output\OutputInterface;
+use TrelloCli\Client;
 
 /**
  * List people command
@@ -16,7 +18,7 @@ use Symfony\Component\Console\Input\InputArgument,
  * Responsible for interfacing with the Trello API to get a list of people and
  * displaying all the cards they have
  */
-class ListPeopleCommand extends \Cilex\Command\Command
+class ListPeopleCommand extends Command
 {
     /**
      * Configure the command
@@ -35,13 +37,15 @@ class ListPeopleCommand extends \Cilex\Command\Command
      *
      * @param InputInterface  $input  The input from the user
      * @param OutputInterface $output The outputting interface
+     *
+     * @return null|int null or 0 if everything went fine, or an error code
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
         $boardName = $input->getArgument('board-name');
         $hideCards = $input->getOption('hide-cards');
 
-        $client = new \TrelloCli\Client($this->getContainer());
+        $client = Client::instance();
         $board = $client->getBoardByName($boardName);
 
         $members = [];
@@ -63,29 +67,26 @@ class ListPeopleCommand extends \Cilex\Command\Command
         $cards = $client->getCards($board['id']);
 
         foreach ($cards as $card) {
-
             foreach ($card['idMembers'] as $cardMemberId) {
-
                 $members[$cardMemberId]['cards'][$card['idList']][] = $card;
                 $members[$cardMemberId]['cardCount'] = (int) $members[$cardMemberId]['cardCount'] + 1;
 
                 preg_match('/^\((.+?)\)/', $card['name'], $points);
 
                 if (!empty($points) && isset($points[1])) {
-                    $members[$cardMemberId]['storyPoints'] = (float) $members[$cardMemberId]['storyPoints'] + $points[1];
+                    $members[$cardMemberId]['storyPoints'] =
+                        (float) $members[$cardMemberId]['storyPoints'] + $points[1];
                 }
 
             }
         }
 
         foreach ($members as $member) {
-
             $output->writeln($member['name']);
             $output->writeln(" Story Points [" . $member['storyPoints'] . "]");
             $output->writeln(" Cards [" . $member['cardCount'] . "]");
 
             foreach ($member['cards'] as $listId => $listCards) {
-
                 $output->writeln(' ' . $lists[$listId] . ' [' . count($listCards) . ']');
 
                 if (!$hideCards) {

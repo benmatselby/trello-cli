@@ -15,21 +15,11 @@ use TrelloCli\Client;
 class ClientTest extends \PHPUnit\Framework\TestCase
 {
     /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getHttpClient
+     * @inheritdoc
      */
-    public function testThatTheConstructorSetsHttpClientIfObjectPassedIn()
+    public function tearDown()
     {
-        $container = [];
-
-        $http = new \stdClass();
-        $http->name = 'Something';
-
-        $trello = new Client($container, $http);
-
-        $actualClient = $trello->getHttpClient();
-
-        $this->assertEquals($http, $actualClient);
+        Client::resetInstance();
     }
 
     /**
@@ -38,8 +28,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testThatGetBoardsCallsTheBoardsEndPointForMe()
     {
-        $container = [];
-
         $response = $this
             ->getMockBuilder('\stdClass')
             ->setMethods(['getBody'])
@@ -60,7 +48,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->with('/1/members/me/boards')
             ->will($this->returnValue($response));
 
-        $trello = new Client($container, $http);
+        $trello = new Client($http);
         $result = $trello->getBoards();
 
         $this->assertEquals(['board'], $result);
@@ -73,8 +61,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches($boardName, $boards, $expected)
     {
-        $container = [];
-
         $response = $this
             ->getMockBuilder('\stdClass')
             ->setMethods(['getBody'])
@@ -95,12 +81,17 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->with('/1/members/me/boards')
             ->will($this->returnValue($response));
 
-        $trello = new Client($container, $http);
+        $trello = new Client($http);
         $result = $trello->getBoardByName($boardName);
 
         $this->assertEquals($expected, $result);
     }
 
+    /**
+     * Data provider for testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches
+     *
+     * @return array
+     */
     public function provideDataForBoardByName()
     {
         return [
@@ -130,8 +121,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testThatGetCardsCallsTheBoardsEndPointGivenTheBoardId()
     {
-        $container = [];
-
         $response = $this
             ->getMockBuilder('\stdClass')
             ->setMethods(['getBody'])
@@ -152,7 +141,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->with('/1/boards/1234/cards')
             ->will($this->returnValue($response));
 
-        $trello = new Client($container, $http);
+        $trello = new Client($http);
         $result = $trello->getCards('1234');
 
         $this->assertEquals(['card'], $result);
@@ -164,8 +153,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testThatGetCardChecklistCallsTheCardChecklistEndPointWithCardId()
     {
-        $container = [];
-
         $response = $this
             ->getMockBuilder('\stdClass')
             ->setMethods(['getBody'])
@@ -186,7 +173,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->with('/1/cards/1234/checklists')
             ->will($this->returnValue($response));
 
-        $trello = new Client($container, $http);
+        $trello = new Client($http);
         $result = $trello->getCardChecklist('1234');
 
         $this->assertEquals(['card'], $result);
@@ -198,8 +185,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testThatGetCardActionsCallsTheCardActionsEndPointWithCardId()
     {
-        $container = [];
-
         $response = $this
             ->getMockBuilder('\stdClass')
             ->setMethods(['getBody'])
@@ -220,7 +205,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->with('/1/cards/1234/actions')
             ->will($this->returnValue($response));
 
-        $trello = new Client($container, $http);
+        $trello = new Client($http);
         $result = $trello->getCardActions('1234');
 
         $this->assertEquals(['card'], $result);
@@ -232,8 +217,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testThatGetCardMembersCallsTheCardMembersEndPointWithCardId()
     {
-        $container = [];
-
         $response = $this
             ->getMockBuilder('\stdClass')
             ->setMethods(['getBody'])
@@ -254,7 +237,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->with('/1/cards/1234/members')
             ->will($this->returnValue($response));
 
-        $trello = new Client($container, $http);
+        $trello = new Client($http);
         $result = $trello->getCardMembers('1234');
 
         $this->assertEquals(['card'], $result);
@@ -266,8 +249,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testThatGetListsCallsTheBoardsEndPointGivenTheBoardId()
     {
-        $container = [];
-
         $response = $this
             ->getMockBuilder('\stdClass')
             ->setMethods(['getBody'])
@@ -288,7 +269,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->with('/1/boards/1234/lists')
             ->will($this->returnValue($response));
 
-        $trello = new Client($container, $http);
+        $trello = new Client($http);
         $result = $trello->getLists('1234');
 
         $this->assertEquals(['list'], $result);
@@ -300,8 +281,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      */
     public function testThatGetMeberCallsTheMembersEndPointGivenTheMeberId()
     {
-        $container = [];
-
         $response = $this
             ->getMockBuilder('\stdClass')
             ->setMethods(['getBody'])
@@ -322,7 +301,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->with('/1/members/1234')
             ->will($this->returnValue($response));
 
-        $trello = new Client($container, $http);
+        $trello = new Client($http);
         $result = $trello->getMember('1234');
 
         $this->assertEquals(['member'], $result);
