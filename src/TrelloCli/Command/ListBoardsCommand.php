@@ -27,6 +27,7 @@ class ListBoardsCommand extends Command
             ->setName('boards')
             ->setDescription('List all boards for user')
             ->addOption('cards', 'c', InputOption::VALUE_NONE, 'The board name')
+            ->addOption('hide-closed', 's', InputOption::VALUE_NONE, 'Do we show closed boards')
             ->addOption('debug', 'd', InputOption::VALUE_NONE, 'Show debug information');
     }
 
@@ -42,14 +43,27 @@ class ListBoardsCommand extends Command
     {
         $showCards = $input->getOption('cards');
         $debug = $input->getOption('debug');
+        $hideClosed = $input->getOption('hide-closed');
 
         $client = Client::instance();
         $boards = $client->getBoards();
 
-        $output->writeln('Boards found: ' . count($boards) . PHP_EOL);
-
+        $openCount = 0;
+        $closedCount = 0;
         foreach ($boards as $board) {
-            $output->writeln($board['name'] . ($board['closed'] ? ' [Closed]' : ''));
+            $name = $board['name'];
+
+            if ($board['closed']) {
+                $closedCount++;
+                $name .=  ' [Closed]';
+                if ($hideClosed) {
+                    continue;
+                }
+            } else {
+                $openCount++;
+            }
+
+            $output->writeln($name);
 
             if ($debug) {
                 $output->writeln(var_export($board, 1));
@@ -67,5 +81,9 @@ class ListBoardsCommand extends Command
                 }
             }
         }
+
+        $output->writeln('');
+        $output->writeln('Open boards: ' . $openCount);
+        $output->writeln('Closed boards: ' . $closedCount);
     }
 }
