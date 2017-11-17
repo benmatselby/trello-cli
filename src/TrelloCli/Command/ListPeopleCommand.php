@@ -29,7 +29,8 @@ class ListPeopleCommand extends Command
             ->setName('people')
             ->setDescription('List the people on a board and the cards they have assigned to them')
             ->addArgument('board-name', InputArgument::REQUIRED, 'The board name')
-            ->addOption('hide-cards', 's', InputOption::VALUE_NONE, 'Hide the cards, to give just an overview');
+            ->addOption('hide-cards', 's', InputOption::VALUE_NONE, 'Hide the cards, to give just an overview')
+            ->addOption('show-unassigned', 'u', InputOption::VALUE_NONE, 'Show people who have nothing assigned');
     }
 
     /**
@@ -44,6 +45,7 @@ class ListPeopleCommand extends Command
     {
         $boardName = $input->getArgument('board-name');
         $hideCards = $input->getOption('hide-cards');
+        $showUnassigned = $input->getOption('show-unassigned');
 
         $client = Client::instance();
         $board = $client->getBoardByName($boardName);
@@ -82,9 +84,14 @@ class ListPeopleCommand extends Command
         }
 
         foreach ($members as $member) {
+            $cardCount = $member['cardCount'];
+
+            if ($cardCount == 0 && $showUnassigned == false) {
+                continue;
+            }
             $output->writeln($member['name']);
             $output->writeln(" Story Points [" . $member['storyPoints'] . "]");
-            $output->writeln(" Cards [" . $member['cardCount'] . "]");
+            $output->writeln(" Cards [" . $cardCount . "]");
 
             foreach ($member['cards'] as $listId => $listCards) {
                 $output->writeln(' ' . $lists[$listId] . ' [' . count($listCards) . ']');
