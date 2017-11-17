@@ -48,19 +48,14 @@ class ListBoardsCommand extends Command
         $client = Client::instance();
         $boards = $client->getBoards();
 
-        $openCount = 0;
-        $closedCount = 0;
         foreach ($boards as $board) {
             $name = $board['name'];
 
             if ($board['closed']) {
-                $closedCount++;
-                $name .=  ' [Closed]';
+                $name =  'Closed - '.$name;
                 if ($hideClosed) {
                     continue;
                 }
-            } else {
-                $openCount++;
             }
 
             $output->writeln($name);
@@ -81,9 +76,5 @@ class ListBoardsCommand extends Command
                 }
             }
         }
-
-        $output->writeln('');
-        $output->writeln('Open boards: ' . $openCount);
-        $output->writeln('Closed boards: ' . $closedCount);
     }
 }
