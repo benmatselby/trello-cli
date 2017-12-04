@@ -2,12 +2,6 @@ explain:
 	# Makefile for the Trello CLI application, please specify a target
 	#
 	#
-	### Requirements
-	#
-	# PHP >= 5.4
-	# Composer installed
-	#
-	#
 	### Installation
 	#
 	# New repo from scratch?
@@ -25,6 +19,8 @@ clean:
 	rm -fr vendor
 
 install:
+	mkdir -p build/coverage
+	mkdir -p build/logs
 	composer.phar install
 
 	# Manual Steps
@@ -39,6 +35,11 @@ install:
 test: test-php
 
 test-php:
-	phpunit
+	bin/phpunit
 
-.PHONY: clean install test
+test-cov: test-php-cov
+
+test-php-cov:
+	bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml
+
+.PHONY: clean install test test-php test-cov test-php-cov
