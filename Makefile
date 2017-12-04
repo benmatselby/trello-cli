@@ -42,4 +42,7 @@ test-cov: test-php-cov
 test-php-cov:
 	bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml
 
+security-check:
+	bin/security-checker security:check
+
 .PHONY: clean install test test-php test-cov test-php-cov
