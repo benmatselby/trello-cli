@@ -26,7 +26,7 @@ class BurndownCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('burndown')
+            ->setName('board:burndown')
             ->setDescription('Get some stats for each column on the board')
             ->addArgument('board-name', InputArgument::REQUIRED, 'The board name');
     }

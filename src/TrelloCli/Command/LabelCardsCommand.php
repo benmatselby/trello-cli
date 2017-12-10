@@ -24,7 +24,7 @@ class LabelCardsCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('labels')
+            ->setName('cards:labels')
             ->setDescription('List all cards for a board via label')
             ->addArgument('board-name', InputArgument::REQUIRED, 'The board name');
     }

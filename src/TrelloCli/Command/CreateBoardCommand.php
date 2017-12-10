@@ -29,10 +29,9 @@ class CreateBoardCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('create')
+            ->setName('board:create')
             ->setDescription(
-                'Create a board based on a file in csv|tab format. Format should be' . PHP_EOL
-                . '           ID, Story Points, Title, Description'
+                'Create a board based on a file in csv|tab format. Format should be: ID, Story Points, Title, Description'
             )
             ->addArgument('name', InputArgument::REQUIRED, 'The board name')
             ->addArgument('file', InputArgument::OPTIONAL, 'The text file location', '/tmp/trello.txt')

@@ -31,8 +31,8 @@ class JsonExportBoardCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('board-export-json')
-            ->setDescription('List all cards for a board')
+            ->setName('board:export-json')
+            ->setDescription('Export the cards from the board')
             ->addOption(
                 'board',
                 null,

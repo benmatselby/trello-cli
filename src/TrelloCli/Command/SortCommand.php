@@ -35,7 +35,7 @@ class SortCommand extends Command
     {
         $sorters = implode(', ', $this->sorters);
         $this
-            ->setName('sort')
+            ->setName('cards:sort')
             ->setDescription('List the cards in a certain order')
             ->addArgument('board-name', InputArgument::REQUIRED, 'The board name')
             ->addOption(

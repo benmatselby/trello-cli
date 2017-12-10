@@ -37,7 +37,7 @@ class ListCardsCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('cards')
+            ->setName('cards:list')
             ->setDescription('List all cards for a board')
             ->addArgument('board-name', InputArgument::REQUIRED, 'The board name')
             ->addOption(

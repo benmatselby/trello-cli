@@ -26,7 +26,7 @@ class ListPeopleCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('people')
+            ->setName('board:people')
             ->setDescription('List the people on a board and the cards they have assigned to them')
             ->addArgument('board-name', InputArgument::REQUIRED, 'The board name')
             ->addOption('hide-cards', 's', InputOption::VALUE_NONE, 'Hide the cards, to give just an overview')

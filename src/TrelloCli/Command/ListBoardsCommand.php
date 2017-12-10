@@ -24,8 +24,8 @@ class ListBoardsCommand extends Command
     protected function configure()
     {
         $this
-            ->setName('boards')
-            ->setDescription('List all boards for user')
+            ->setName('board:list')
+            ->setDescription('List all the boards you have access to')
             ->addOption('cards', 'c', InputOption::VALUE_NONE, 'The board name')
             ->addOption('hide-closed', 's', InputOption::VALUE_NONE, 'Do we show closed boards')
             ->addOption('debug', 'd', InputOption::VALUE_NONE, 'Show debug information');
