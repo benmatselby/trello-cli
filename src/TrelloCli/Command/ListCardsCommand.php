@@ -11,6 +11,8 @@ use Symfony\Component\Console\Input\InputOption;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use TrelloCli\Client;
+use TrelloCli\Filter\Label;
+use TrelloCli\Filter\IgnoreLabel;
 
 /**
  * List cards command
@@ -35,10 +37,17 @@ class ListCardsCommand extends Command
                 'Do we strip () from the start of the name'
             )
             ->addOption(
-                'ignore-tags',
+                'ignore-labels',
                 null,
                 InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
                 'List of tags to ignore',
+                []
+            )
+            ->addOption(
+                'filter-labels',
+                null,
+                InputOption::VALUE_OPTIONAL | InputOption::VALUE_IS_ARRAY,
+                'List of tags to filter on',
                 []
             );
     }
@@ -55,14 +64,26 @@ class ListCardsCommand extends Command
     {
         $boardName = $input->getArgument('board-name');
         $stripStoryPoints = $input->getOption('strip-scrum-for-trello');
-        $ignoreTags = $input->getOption('ignore-tags');
+        $ignoreLabels = $input->getOption('ignore-labels');
+        $filterLabels = $input->getOption('filter-labels');
 
         $client = Client::instance();
         $board = $client->getBoardByName($boardName);
+        $lists = $client->getLists($board['id']);
+        $cards = $client->getCards($board['id']);
+
+        if (!empty($ignoreLabels)) {
+            $filter = new IgnoreLabel();
+            $cards = $filter->setCriteria($ignoreLabels)->filter($cards);
+        }
+
+        if (!empty($filterLabels)) {
+            $filter = new Label();
+            $cards = $filter->setCriteria($filterLabels)->filter($cards);
+        }
 
         $boardLayout = [];
 
-        $lists = $client->getLists($board['id']);
         foreach ($lists as $list) {
             $boardLayout[$list['id']] = [
                 'name' => $list['name'],
@@ -70,25 +91,7 @@ class ListCardsCommand extends Command
             ];
         }
 
-        $cards = $client->getCards($board['id']);
-
-        $actualCards = 0;
         foreach ($cards as $card) {
-            $addCard = true;
-            if (!empty($ignoreTags)) {
-                foreach ($card['labels'] as $cardLabel) {
-                    if (in_array($cardLabel['name'], $ignoreTags)) {
-                        $addCard = false;
-                        break;
-                    }
-                }
-            }
-
-            if (!$addCard) {
-                continue;
-            }
-            $actualCards++;
-
             $cardName = $card['name'];
 
             if (!empty($card['badges']['due'])) {
@@ -103,7 +106,7 @@ class ListCardsCommand extends Command
             $boardLayout[$card['idList']]['cards'][] = trim($cardName);
         }
 
-        $boardName = $boardName . ' (' . $actualCards . ')' ;
+        $boardName = $boardName . ' (' . count($cards) . ')' ;
         $output->writeln($boardName);
         $output->writeln(str_repeat("=", strlen($boardName)) . PHP_EOL);
 
