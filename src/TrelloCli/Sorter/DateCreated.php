@@ -19,14 +19,14 @@ class DateCreated implements Sorter
     {
         $data = [];
         foreach ($cards as $card) {
-            $cardName = $card['name'];
             $created = new \DateTime();
             $created->setTimestamp(hexdec(substr($card['id'], 0, 8)));
 
-            $data[$created->getTimestamp()] = $created->format('Y-m-d H:i:s').' '.$cardName;
+            $card['name'] = $created->format('Y-m-d H:i:s').' '.$card['name'];
+            $data[$created->getTimestamp()] = $card;
         }
 
         sort($data);
-        return $data;
+        return array_values($data);
     }
 }

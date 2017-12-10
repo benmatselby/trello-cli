@@ -73,10 +73,10 @@ class SortCommand extends Command
         $board = $client->getBoardByName($boardName);
 
         $cards = $client->getCards($board['id']);
-        $data = $sorter->sort($cards);
+        $cards = $sorter->sort($cards);
 
-        foreach ($data as $record) {
-            $output->writeln('* ' . $record);
+        foreach ($cards as $card) {
+            $output->writeln('* ' . $card['name']);
         }
     }
 }
