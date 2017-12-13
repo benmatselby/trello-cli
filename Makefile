@@ -22,12 +22,19 @@ install:
 	mkdir -p build/coverage
 	mkdir -p build/logs
 	composer.phar install
-
-	# Manual Steps
+	#
+	#
+	### Manual Steps
 	# -> Now create a config file in config/config.php
 	#
 	# An example is below:
+	#
 	cat config/config.php.dist
+	#
+	# Or, you can define the following environment variables
+	#
+	# TRELLO_CLI_KEY
+	# TRELLO_CLI_SECRET
 	#
 	# You will need to generate some API keys: https://trello.com/docs/gettingstarted/index.html#getting-an-application-key
 

@@ -2,8 +2,8 @@
 <?php
 
 require_once __DIR__ . '/../vendor/autoload.php';
-require __DIR__ . '/../config/config.php';
 
+$config = \TrelloCli\Config\Adapter::getConfig();
 \TrelloCli\Client::instance($config);
 
 use Symfony\Component\Console\Application;

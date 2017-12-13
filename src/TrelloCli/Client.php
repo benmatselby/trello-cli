@@ -40,18 +40,18 @@ class Client
     /**
      * Singleton for the Trello Client
      *
-     * @param array $config The configuration we need to spike the client
+     * @param Config $config The configuration we need to spike the client
      *
      * @return Client
      */
-    public static function instance(array $config = [])
+    public static function instance(Config $config = null)
     {
         if (self::$instance == null) {
             $httpClient = new HttpClient([
                 'base_uri' => 'https://api.trello.com',
                 'query' => [
-                    'key' => $config['key'],
-                    'token' => $config['secret']
+                    'key' => $config->getKey(),
+                    'token' => $config->getSecret()
                 ]
             ]);
             self::$instance = new self($httpClient);
