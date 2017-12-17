@@ -3,6 +3,9 @@ php:
   - 7.1
   - 7.2
 
+notifications:
+  email: true
+
 before_script:
   - composer install
 
