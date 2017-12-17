@@ -15,11 +15,6 @@ use GuzzleHttp\Client as HttpClient;
 class Client
 {
     /**
-     * Cilex application
-     */
-    protected $container;
-
-    /**
      * GuzzleHttp\Client client
      */
     protected $httpClient;
