@@ -15,9 +15,11 @@ explain:
 	#   -> $$ bin/trello.php
 	#
 
+.PHONY: clean
 clean:
 	rm -fr vendor
 
+.PHONY: install
 install:
 	mkdir -p build/coverage
 	mkdir -p build/logs
@@ -38,18 +40,14 @@ install:
 	#
 	# You will need to generate some API keys: https://trello.com/docs/gettingstarted/index.html#getting-an-application-key
 
-# Testing
-test: test-php
-
-test-php:
+.PHONY: test
+test:
 	bin/phpunit
 
-test-cov: test-php-cov
+.PHONY: test-cov
+test-cov:
+	bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml --coverage-text
 
-test-php-cov:
-	bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml
-
+.PHONY: security-check
 security-check:
 	bin/security-checker security:check
-
-.PHONY: clean install test test-php test-cov test-php-cov
