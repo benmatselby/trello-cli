@@ -1,3 +1,7 @@
-build/
-tests/
-config/
+build
+tests
+config
+phpunit.xml.dist
+README.md
+.git
+.idea
