@@ -1,19 +1,26 @@
 explain:
-	# Makefile for the Trello CLI application, please specify a target
+	# Makefile for the Trello CLI application
 	#
 	#
 	### Installation
 	#
 	# New repo from scratch?
 	#  -> $$ make clean install
-	#  -> Then follow the instructions the output gives you
 	#
 	#
 	### Execution
 	#
-	# Run:
+	# Locally:
+	#   -> $$ export TRELLO_CLI_KEY=[your key]
+	#   -> $$ export TRELLO_CLI_SECRET=[your secret]
 	#   -> $$ bin/trello.php
 	#
+	# Docker:
+	#   -> $$ export TRELLO_CLI_KEY=[your key]
+	#   -> $$ export TRELLO_CLI_SECRET=[your secret]
+	#   -> $$ docker run --rm -eTRELLO_CLI_KEY -eTRELLO_CLI_SECRET benmatselby/trello-cli
+	#
+
 
 .PHONY: clean
 clean:
@@ -24,21 +31,6 @@ install:
 	mkdir -p build/coverage
 	mkdir -p build/logs
 	composer.phar install
-	#
-	#
-	### Manual Steps
-	# -> Now create a config file in config/config.php
-	#
-	# An example is below:
-	#
-	cat config/config.php.dist
-	#
-	# Or, you can define the following environment variables
-	#
-	# TRELLO_CLI_KEY
-	# TRELLO_CLI_SECRET
-	#
-	# You will need to generate some API keys: https://trello.com/docs/gettingstarted/index.html#getting-an-application-key
 
 .PHONY: test
 test:
@@ -51,3 +43,7 @@ test-cov:
 .PHONY: security-check
 security-check:
 	bin/security-checker security:check
+
+.PHONY: docker-build
+docker-build:
+	docker build -t benmatselby/trello-cli .
