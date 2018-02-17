@@ -3,3 +3,4 @@ vendor/
 bin/
 build/
 .idea/
+trello-cli.code-workspace
