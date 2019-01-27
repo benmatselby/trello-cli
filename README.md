@@ -2,6 +2,8 @@
 
 [![Build Status](https://travis-ci.org/benmatselby/trello-cli.png?branch=master)](https://travis-ci.org/benmatselby/trello-cli)
 
+**This is now deprecated in favour of [lionel](https://github.com/benmatselby/lionel) which is easier to maintain.**
+
 Small Trello CLI application for managing a the Trello board in a SCRUM environment. It isn't intended to be a full wrapper around the Trello API, but some simple tools to automate sprint management and artefacts such as the CHANGELOG.
 
 * You will need to generate an application key/secret pair and generate a config file.
