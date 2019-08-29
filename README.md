@@ -1,20 +1,18 @@
 # Trello CLI
 
-[![Build Status](https://travis-ci.org/benmatselby/trello-cli.png?branch=master)](https://travis-ci.org/benmatselby/trello-cli)
-
 **This is now deprecated in favour of [lionel](https://github.com/benmatselby/lionel) which is easier to maintain.**
 
 Small Trello CLI application for managing a the Trello board in a SCRUM environment. It isn't intended to be a full wrapper around the Trello API, but some simple tools to automate sprint management and artefacts such as the CHANGELOG.
 
-* You will need to generate an application key/secret pair and generate a config file.
-* It runs on php, you will need at least php 7.1 and composer or docker.
-* It assumes you have Scrum for Trello, as it adds story points to the name.
-* You can create a board and list existing boards (with all the cards on a board).
+- You will need to generate an application key/secret pair and generate a config file.
+- It runs on php, you will need at least php 7.1 and composer or docker.
+- It assumes you have Scrum for Trello, as it adds story points to the name.
+- You can create a board and list existing boards (with all the cards on a board).
 
 It doesn't
 
-* Add team members to the board, you will have to remember, although I may implement this.
-* Add all the columns you want. Again, may add this, and have a config array of columns to create.
+- Add team members to the board, you will have to remember, although I may implement this.
+- Add all the columns you want. Again, may add this, and have a config array of columns to create.
 
 ## Installation via Git
 
