@@ -30,7 +30,7 @@ clean: ## Clean the local dependencies
 install: ## Install the local dependencies
 	mkdir -p build/coverage
 	mkdir -p build/logs
-	composer.phar install
+	composer install
 
 .PHONY: test
 test: ## Run the unit tests
