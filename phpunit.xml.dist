@@ -4,9 +4,7 @@
     bootstrap="tests/bootstrap.php"
     colors="true"
     forceCoversAnnotation="true"
-    processIsolation="false"
-    report-useless-tests="true"
-    disallow-test-output="true">
+    processIsolation="false">
 
     <testsuite name="TrelloCli">
         <directory suffix="Test.php">tests</directory>
