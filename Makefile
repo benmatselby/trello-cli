@@ -30,7 +30,15 @@ clean: ## Clean the local dependencies
 install: ## Install the local dependencies
 	mkdir -p build/coverage
 	mkdir -p build/logs
-	composer install
+	docker run --rm --interactive --tty \
+		--volume $$(pwd):/app \
+		composer install
+
+.PHONY: composer-outdated
+composer-outdated: ## Proxy composer command
+	docker run --rm --interactive --tty \
+		--volume $$(pwd):/app \
+		composer outdated
 
 .PHONY: test
 test: ## Run the unit tests
@@ -39,6 +47,10 @@ test: ## Run the unit tests
 .PHONY: test-cov
 test-cov: ## Run the unit tests with code coverage
 	bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml --coverage-text
+
+.PHONY: security-check
+security-check: ## Security checker on dependencies
+	./bin/security-checker security:check
 
 .PHONY: docker-build
 docker-build: ## Build the docker container

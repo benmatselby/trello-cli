@@ -34,10 +34,7 @@ class BurndownCommand extends Command
     /**
      * Get some stats for each column on the board
      *
-     * @param InputInterface  $input  The input from the user
-     * @param OutputInterface $output The outputting interface
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -78,5 +75,7 @@ class BurndownCommand extends Command
             ->setHeaders(array('List', 'Cards', 'Story Points'))
             ->setRows($lists);
         $table->render();
+
+        return 0;
     }
 }

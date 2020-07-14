@@ -17,7 +17,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     /**
      * @inheritdoc
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         Client::resetInstance();
     }

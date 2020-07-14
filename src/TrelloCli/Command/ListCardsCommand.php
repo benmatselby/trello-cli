@@ -71,10 +71,7 @@ class ListCardsCommand extends Command
     /**
      * List the cards for a given board
      *
-     * @param InputInterface  $input  The input from the user
-     * @param OutputInterface $output The outputting interface
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -144,5 +141,7 @@ class ListCardsCommand extends Command
             }
             $output->writeln('' . PHP_EOL);
         }
+
+        return 0;
     }
 }
