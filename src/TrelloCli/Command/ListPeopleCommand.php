@@ -36,10 +36,7 @@ class ListPeopleCommand extends Command
     /**
      * List the people and the cards they have for a given board
      *
-     * @param InputInterface  $input  The input from the user
-     * @param OutputInterface $output The outputting interface
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -104,5 +101,7 @@ class ListPeopleCommand extends Command
             }
             $output->writeln('');
         }
+
+        return 0;
     }
 }

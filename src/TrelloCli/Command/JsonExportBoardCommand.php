@@ -44,10 +44,7 @@ class JsonExportBoardCommand extends Command
     /**
      * Export the board as json
      *
-     * @param InputInterface  $input  The input from the user
-     * @param OutputInterface $output The outputting interface
-     *
-     * @return null|int null or 0 if everything went fine, or an error code
+     * @inheritdoc
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
@@ -61,6 +58,8 @@ class JsonExportBoardCommand extends Command
         }
 
         $output->writeln(json_encode($boards));
+
+        return 0;
     }
 
     /**

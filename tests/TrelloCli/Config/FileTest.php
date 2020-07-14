@@ -17,7 +17,7 @@ class FileTest extends \PHPUnit\Framework\TestCase
     /**
      * @inheritdoc
      */
-    public function tearDown()
+    public function tearDown(): void
     {
         putenv('TRELLO_CLI_KEY');
         putenv('TRELLO_CLI_SECRET');

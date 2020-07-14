@@ -1,24 +1,20 @@
 {
-    "name":        "benmatselby/trello-cli",
-    "description": "Small Trello cli application for creating sprint boards based and management tools",
-
-    "require": {
-        "symfony/console": "4.0.*",
-        "guzzlehttp/guzzle": "6.3.*"
-    },
-
-    "require-dev": {
-        "sensiolabs/security-checker": "^4.1",
-        "phpunit/phpunit": "^7.0"
-    },
-
-    "config": {
-        "bin-dir": "bin/"
-    },
-
-    "autoload": {
-        "psr-0": {
-            "TrelloCli": "src/"
-        }
+  "name": "benmatselby/trello-cli",
+  "description": "Small Trello CLI application for creating sprint boards based and management tools",
+  "require": {
+    "symfony/console": "^5.1",
+    "guzzlehttp/guzzle": "6.3.*"
+  },
+  "require-dev": {
+    "sensiolabs/security-checker": "^6.0",
+    "phpunit/phpunit": "^9.2"
+  },
+  "config": {
+    "bin-dir": "bin/"
+  },
+  "autoload": {
+    "psr-0": {
+      "TrelloCli": "src/"
     }
+  }
 }
