@@ -1,6 +1,0 @@
-<?php
-
-$config = [
-    'key' => '[APPLICATION KEY]',
-    'secret' => '[SECRET]',
-];
