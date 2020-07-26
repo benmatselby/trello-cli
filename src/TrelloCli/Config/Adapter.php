@@ -24,13 +24,6 @@ class Adapter
             return $environment;
         }
 
-        $file = new File();
-        $file->build();
-
-        if ($file->isValid()) {
-            return $file;
-        }
-
         return new Config();
     }
 }
