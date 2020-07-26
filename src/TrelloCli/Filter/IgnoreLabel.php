@@ -17,9 +17,9 @@ class IgnoreLabel implements Filter
      * The filter criteria which in this case is a bunch of
      * trello labels to ignore
      *
-     * @var array
+     * @var array<string>
      */
-    protected $criteria;
+    protected array $criteria;
 
     /**
      * Set the filter criteria
@@ -38,7 +38,7 @@ class IgnoreLabel implements Filter
     /**
      * @inheritdoc
      */
-    public function filter(array $cards)
+    public function filter(array $cards): array
     {
         $data = [];
         foreach ($cards as $card) {
