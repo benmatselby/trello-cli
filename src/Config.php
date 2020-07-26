@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Config store
- */
-
 namespace TrelloCli;
 
 /**

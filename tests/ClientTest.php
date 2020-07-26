@@ -41,8 +41,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $http
             ->expects($this->once())
-            ->method('get')
-            ->with('/1/members/me/boards')
+            ->method('request')
+            ->with('GET', '/1/members/me/boards')
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
@@ -74,8 +74,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $http
             ->expects($this->once())
-            ->method('get')
-            ->with('/1/members/me/boards')
+            ->method('request')
+            ->with('GET', '/1/members/me/boards')
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
@@ -129,8 +129,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $http
             ->expects($this->once())
-            ->method('get')
-            ->with('/1/boards/1234/cards')
+            ->method('request')
+            ->with('GET', '/1/boards/1234/cards')
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
@@ -155,8 +155,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $http
             ->expects($this->once())
-            ->method('get')
-            ->with('/1/cards/1234/checklists')
+            ->method('request')
+            ->with('GET', '/1/cards/1234/checklists')
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
@@ -181,8 +181,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $http
             ->expects($this->once())
-            ->method('get')
-            ->with('/1/cards/1234/actions')
+            ->method('request')
+            ->with('GET', '/1/cards/1234/actions')
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
@@ -207,8 +207,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $http
             ->expects($this->once())
-            ->method('get')
-            ->with('/1/cards/1234/members')
+            ->method('request')
+            ->with('GET', '/1/cards/1234/members')
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
@@ -233,8 +233,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $http
             ->expects($this->once())
-            ->method('get')
-            ->with('/1/boards/1234/lists')
+            ->method('request')
+            ->with('GET', '/1/boards/1234/lists')
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
@@ -259,8 +259,8 @@ class ClientTest extends \PHPUnit\Framework\TestCase
 
         $http
             ->expects($this->once())
-            ->method('get')
-            ->with('/1/members/1234')
+            ->method('request')
+            ->with('GET', '/1/members/1234')
             ->will($this->returnValue($response));
 
         $trello = new Client($http);

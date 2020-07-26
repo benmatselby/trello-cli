@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Config Adapter
- */
-
 namespace TrelloCli\Config;
 
 use TrelloCli\Config;

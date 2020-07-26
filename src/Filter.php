@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Filter interface
- */
-
 namespace TrelloCli;
 
 /**

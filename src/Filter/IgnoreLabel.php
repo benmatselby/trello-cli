@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Filter cards out based on labels
- */
-
 namespace TrelloCli\Filter;
 
 use TrelloCli\Filter;

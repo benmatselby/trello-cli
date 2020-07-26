@@ -1,9 +1,5 @@
 <?php
 
-/**
- * List the people on the board, and the cards they have assigned
- */
-
 namespace TrelloCli\Command;
 
 use Symfony\Component\Console\Command\Command;
