@@ -17,7 +17,7 @@ class IgnoreLabelTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Filter\IgnoreLabel::setCriteria
      * @covers \TrelloCli\Filter\IgnoreLabel::filter
      */
-    public function testWeCanFilterCardsIfTheyHaveACertainLabel()
+    public function testWeCanFilterCardsIfTheyHaveACertainLabel(): void
     {
         $cards = [
             [

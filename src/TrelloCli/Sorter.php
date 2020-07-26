@@ -15,9 +15,9 @@ interface Sorter
      * Sort the cards in a given way and then return the data back
      * in the same data structure
      *
-     * @param array $cards The cards from the Trello API
+     * @param array<int,array> $cards The cards to be sorted
      *
-     * @return array
+     * @return array<int,array>
      */
     public function sort(array $cards);
 }

@@ -27,7 +27,7 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers \TrelloCli\Config\Environment::build
      */
-    public function testWeCanGetConfigFromTheEnvironment()
+    public function testWeCanGetConfigFromTheEnvironment(): void
     {
         putenv('TRELLO_CLI_KEY=my-key-env');
         putenv('TRELLO_CLI_SECRET=my-secret-env');

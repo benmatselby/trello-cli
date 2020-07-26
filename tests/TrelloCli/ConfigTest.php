@@ -23,7 +23,7 @@ class ConfigTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Config::isValid
      * @covers \TrelloCli\Config::setValid
      */
-    public function testSettersAndGetters()
+    public function testSettersAndGetters(): void
     {
         $config = new Config();
         $config

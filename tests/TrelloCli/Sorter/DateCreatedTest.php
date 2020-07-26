@@ -16,7 +16,7 @@ class DateCreatedTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers \TrelloCli\Sorter\DateCreated::sort
      */
-    public function testWeOrderByDateCreated()
+    public function testWeOrderByDateCreated(): void
     {
         $cards = [
             [

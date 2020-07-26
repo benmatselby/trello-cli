@@ -16,7 +16,7 @@ class Environment extends Config
     /**
      * Get the config data from the local environment
      */
-    public function build()
+    public function build(): void
     {
         $key = getenv('TRELLO_CLI_KEY', true);
         $secret = getenv('TRELLO_CLI_SECRET', true);

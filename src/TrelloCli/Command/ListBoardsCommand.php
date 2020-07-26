@@ -22,7 +22,7 @@ class ListBoardsCommand extends Command
     /**
      * Configure the command
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('board:list')

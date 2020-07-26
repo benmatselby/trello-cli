@@ -18,7 +18,7 @@ class AdapterTest extends \PHPUnit\Framework\TestCase
     /**
      * @covers \TrelloCli\Config\Adapter::getConfig
      */
-    public function testTheDefaultIsAnEmptyConfigFile()
+    public function testTheDefaultIsAnEmptyConfigFile(): void
     {
         $config = Adapter::getConfig();
 

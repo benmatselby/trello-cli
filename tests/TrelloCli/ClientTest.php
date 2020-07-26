@@ -27,21 +27,17 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getBoards
      */
-    public function testThatGetBoardsCallsTheBoardsEndPointForMe()
+    public function testThatGetBoardsCallsTheBoardsEndPointForMe(): void
     {
-        $response = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['getBody'])
-            ->getMock();
+        $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
+
         $response
             ->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue('["board"]'));
 
         $http = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['get'])
-            ->getMock();
+            ->createMock('\GuzzleHttp\Client');
 
         $http
             ->expects($this->once())
@@ -59,22 +55,22 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getBoardByName
      * @dataProvider provideDataForBoardByName
+     *
+     * @param ?array<string,string> $expected The expected boards
      */
-    public function testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches($boardName, $boards, $expected)
-    {
-        $response = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['getBody'])
-            ->getMock();
+    public function testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches(
+        string $boardName,
+        string $boards,
+        ?array $expected
+    ): void {
+        $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
         $response
             ->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue($boards));
 
         $http = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['get'])
-            ->getMock();
+            ->createMock('\GuzzleHttp\Client');
 
         $http
             ->expects($this->once())
@@ -91,9 +87,9 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     /**
      * Data provider for testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches
      *
-     * @return array
+     * @return array<string,array>
      */
-    public function provideDataForBoardByName()
+    public function provideDataForBoardByName(): array
     {
         return [
             'Standard name check' => [
@@ -120,21 +116,16 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getCards
      */
-    public function testThatGetCardsCallsTheBoardsEndPointGivenTheBoardId()
+    public function testThatGetCardsCallsTheBoardsEndPointGivenTheBoardId(): void
     {
-        $response = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['getBody'])
-            ->getMock();
+        $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
         $response
             ->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue('["card"]'));
 
         $http = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['get'])
-            ->getMock();
+            ->createMock('\GuzzleHttp\Client');
 
         $http
             ->expects($this->once())
@@ -152,21 +143,15 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getCardChecklist
      */
-    public function testThatGetCardChecklistCallsTheCardChecklistEndPointWithCardId()
+    public function testThatGetCardChecklistCallsTheCardChecklistEndPointWithCardId(): void
     {
-        $response = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['getBody'])
-            ->getMock();
+        $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
         $response
             ->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue('["card"]'));
 
-        $http = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['get'])
-            ->getMock();
+        $http = $this->createMock('\GuzzleHttp\Client');
 
         $http
             ->expects($this->once())
@@ -184,21 +169,15 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getCardActions
      */
-    public function testThatGetCardActionsCallsTheCardActionsEndPointWithCardId()
+    public function testThatGetCardActionsCallsTheCardActionsEndPointWithCardId(): void
     {
-        $response = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['getBody'])
-            ->getMock();
+        $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
         $response
             ->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue('["card"]'));
 
-        $http = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['get'])
-            ->getMock();
+        $http = $this->createMock('\GuzzleHttp\Client');
 
         $http
             ->expects($this->once())
@@ -216,21 +195,15 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getCardMembers
      */
-    public function testThatGetCardMembersCallsTheCardMembersEndPointWithCardId()
+    public function testThatGetCardMembersCallsTheCardMembersEndPointWithCardId(): void
     {
-        $response = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['getBody'])
-            ->getMock();
+        $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
         $response
             ->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue('["card"]'));
 
-        $http = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['get'])
-            ->getMock();
+        $http = $this->createMock('\GuzzleHttp\Client');
 
         $http
             ->expects($this->once())
@@ -248,21 +221,15 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getLists
      */
-    public function testThatGetListsCallsTheBoardsEndPointGivenTheBoardId()
+    public function testThatGetListsCallsTheBoardsEndPointGivenTheBoardId(): void
     {
-        $response = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['getBody'])
-            ->getMock();
+        $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
         $response
             ->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue('["list"]'));
 
-        $http = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['get'])
-            ->getMock();
+        $http = $this->createMock('\GuzzleHttp\Client');
 
         $http
             ->expects($this->once())
@@ -280,21 +247,15 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getMember
      */
-    public function testThatGetMeberCallsTheMembersEndPointGivenTheMeberId()
+    public function testThatGetMeberCallsTheMembersEndPointGivenTheMeberId(): void
     {
-        $response = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['getBody'])
-            ->getMock();
+        $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
         $response
             ->expects($this->once())
             ->method('getBody')
             ->will($this->returnValue('["member"]'));
 
-        $http = $this
-            ->getMockBuilder('\stdClass')
-            ->setMethods(['get'])
-            ->getMock();
+        $http = $this->createMock('\GuzzleHttp\Client');
 
         $http
             ->expects($this->once())

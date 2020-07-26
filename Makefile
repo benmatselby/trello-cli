@@ -40,6 +40,9 @@ composer-outdated: ## Proxy composer command
 lint: ## Lint the PHP files
 	find src -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
 
+.PHONY: static
+static: static-phpcs static-phpstan ## Run all the static analysis
+
 .PHONY: static-phpstan
 static-phpstan: ## Static analysis of the codebase
 	./bin/phpstan analyse src tests
