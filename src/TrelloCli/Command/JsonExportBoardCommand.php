@@ -29,7 +29,7 @@ class JsonExportBoardCommand extends Command
     /**
      * Configure the command
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('board:export-json')

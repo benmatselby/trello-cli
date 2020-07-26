@@ -24,7 +24,7 @@ class BurndownCommand extends Command
     /**
      * Configure the command
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('board:burndown')
@@ -47,6 +47,10 @@ class BurndownCommand extends Command
 
         $client = Client::instance();
         $board = $client->getBoardByName($boardName);
+        if ($board == null) {
+            $output->writeln("Cannot find board " . $boardName);
+            return 1;
+        }
         $boardLists = $client->getLists($board['id']);
 
         foreach ($boardLists as $boardList) {

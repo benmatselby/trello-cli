@@ -18,17 +18,17 @@ class Client
     /**
      * GuzzleHttp\Client client
      */
-    protected $httpClient;
+    protected \GuzzleHttp\Client $httpClient;
 
     /**
      * Trello Singleton
      */
-    protected static $instance;
+    protected static ?Client $instance = null;
 
     /**
      * Constructor
      */
-    public function __construct($httpClient = null)
+    public function __construct(\GuzzleHttp\Client $httpClient = null)
     {
         $this->httpClient = $httpClient;
     }
@@ -40,7 +40,7 @@ class Client
      *
      * @return Client
      */
-    public static function instance(Config $config = null)
+    public static function instance(Config $config = null): Client
     {
         if (self::$instance == null) {
             $httpClient = new HttpClient([
@@ -59,7 +59,7 @@ class Client
     /**
      * Reset the singleton
      */
-    public static function resetInstance()
+    public static function resetInstance(): void
     {
         self::$instance = null;
     }
@@ -69,7 +69,7 @@ class Client
      *
      * @return \GuzzleHttp\Client
      */
-    public function getHttpClient()
+    public function getHttpClient(): \GuzzleHttp\Client
     {
         return $this->httpClient;
     }
@@ -77,9 +77,9 @@ class Client
     /**
      * Getter for the Boards
      *
-     * @return array
+     * @return array<int,array>
      */
-    public function getBoards()
+    public function getBoards(): array
     {
         $response = $this->httpClient->get('/1/members/me/boards');
         return json_decode($response->getBody(), true);
@@ -90,9 +90,9 @@ class Client
      *
      * @param string $name The name of the board we want
      *
-     * @return array|null
+     * @return ?array
      */
-    public function getBoardByName($name)
+    public function getBoardByName($name): ?array
     {
         $boards = $this->getBoards();
 
@@ -112,7 +112,7 @@ class Client
      *
      * @return array
      */
-    public function getCards($boardId)
+    public function getCards($boardId): array
     {
         $response = $this->httpClient->get('/1/boards/' . $boardId . '/cards');
         return json_decode($response->getBody(), true);
@@ -125,7 +125,7 @@ class Client
      *
      * @return array
      */
-    public function getCardChecklist($cardId)
+    public function getCardChecklist($cardId): array
     {
         $response = $this->httpClient->get('/1/cards/' . $cardId . '/checklists');
         return json_decode($response->getBody(), true);

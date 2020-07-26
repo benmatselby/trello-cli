@@ -15,8 +15,12 @@ class DateCreated implements Sorter
 {
     /**
      * @inheritdoc
+     *
+     * @param array<int,array> $cards The cards to be sorted
+     *
+     * @return array<int,array>
      */
-    public function sort(array $cards)
+    public function sort(array $cards): array
     {
         $data = [];
         foreach ($cards as $card) {

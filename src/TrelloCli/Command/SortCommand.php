@@ -32,7 +32,7 @@ class SortCommand extends Command
     /**
      * Configure the command
      */
-    protected function configure()
+    protected function configure(): void
     {
         $sorters = implode(', ', $this->sorters);
         $this

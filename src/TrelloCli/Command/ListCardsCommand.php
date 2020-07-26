@@ -35,7 +35,7 @@ class ListCardsCommand extends Command
     /**
      * Configure the command
      */
-    protected function configure()
+    protected function configure(): void
     {
         $this
             ->setName('cards:list')

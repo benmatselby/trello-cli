@@ -16,7 +16,7 @@ class Adapter
     /**
      * @return Config
      */
-    public static function getConfig()
+    public static function getConfig(): Config
     {
         $environment = new Environment();
         $environment->build();

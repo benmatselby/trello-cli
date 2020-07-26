@@ -17,7 +17,7 @@ class LabelTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Filter\Label::setCriteria
      * @covers \TrelloCli\Filter\Label::filter
      */
-    public function testWeCanFilterCardsIfTheyHaveACertainLabel()
+    public function testWeCanFilterCardsIfTheyHaveACertainLabel(): void
     {
         $cards = [
             [

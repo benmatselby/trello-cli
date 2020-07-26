@@ -31,7 +31,6 @@ class Label implements Filter
     public function setCriteria($criteria)
     {
         $this->criteria = $criteria;
-
         return $this;
     }
 
