@@ -36,6 +36,7 @@ class LabelCardsCommand extends Command
      */
     protected function execute(InputInterface $input, OutputInterface $output)
     {
+        $boardLayout = [];
         $boardName = $input->getArgument('board-name');
 
         $client = Client::instance();
