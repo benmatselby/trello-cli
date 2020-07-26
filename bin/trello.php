@@ -12,7 +12,6 @@ $app = new Application('Trello CLI');
 $app->add(new \TrelloCli\Command\ListCardsCommand());
 $app->add(new \TrelloCli\Command\ListBoardsCommand());
 $app->add(new \TrelloCli\Command\ListPeopleCommand());
-$app->add(new \TrelloCli\Command\CreateBoardCommand());
 $app->add(new \TrelloCli\Command\LabelCardsCommand());
 $app->add(new \TrelloCli\Command\JsonExportBoardCommand());
 $app->add(new \TrelloCli\Command\BurndownCommand());
