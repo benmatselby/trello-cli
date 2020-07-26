@@ -143,7 +143,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
-        $result = $trello->getCards('1234');
+        $result = $trello->getCards(1234);
 
         $this->assertEquals(['card'], $result);
     }
@@ -175,7 +175,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
-        $result = $trello->getCardChecklist('1234');
+        $result = $trello->getCardChecklist(1234);
 
         $this->assertEquals(['card'], $result);
     }
@@ -207,7 +207,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
-        $result = $trello->getCardActions('1234');
+        $result = $trello->getCardActions(1234);
 
         $this->assertEquals(['card'], $result);
     }
@@ -239,7 +239,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
-        $result = $trello->getCardMembers('1234');
+        $result = $trello->getCardMembers(1234);
 
         $this->assertEquals(['card'], $result);
     }
@@ -271,7 +271,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
-        $result = $trello->getLists('1234');
+        $result = $trello->getLists(1234);
 
         $this->assertEquals(['list'], $result);
     }
@@ -303,7 +303,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->will($this->returnValue($response));
 
         $trello = new Client($http);
-        $result = $trello->getMember('1234');
+        $result = $trello->getMember(1234);
 
         $this->assertEquals(['member'], $result);
     }

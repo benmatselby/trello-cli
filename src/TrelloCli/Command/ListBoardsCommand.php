@@ -59,7 +59,7 @@ class ListBoardsCommand extends Command
             $output->writeln($name);
 
             if ($debug) {
-                $output->writeln(var_export($board, 1));
+                $output->writeln(var_export($board, true));
             }
 
             if ($showCards == true) {
@@ -69,7 +69,7 @@ class ListBoardsCommand extends Command
                     $output->writeln(' ' . $card['name']);
 
                     if ($debug) {
-                        $output->writeln(var_export($card, 1));
+                        $output->writeln(var_export($card, true));
                     }
                 }
             }
