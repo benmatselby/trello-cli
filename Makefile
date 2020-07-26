@@ -36,6 +36,10 @@ install: ## Install the local dependencies
 composer-outdated: ## Proxy composer command
 	composer outdated
 
+.PHONY: lint
+lint: ## Lint the PHP files
+	find src -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
+
 .PHONY: test
 test: ## Run the unit tests
 	bin/phpunit
