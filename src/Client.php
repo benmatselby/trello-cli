@@ -86,7 +86,7 @@ class Client
      *
      * @param string $name The name of the board we want
      *
-     * @return ?array<string,mixed>
+     * @return array<string,mixed>
      */
     public function getBoardByName($name): ?array
     {
