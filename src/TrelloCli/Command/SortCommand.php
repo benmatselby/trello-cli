@@ -57,11 +57,12 @@ class SortCommand extends Command
         $sortMethod = $input->getOption('by');
 
         if (!in_array($sortMethod, $this->sorters)) {
-            throw new \InvalidArgumentException('Please use a valid sorter');
+            throw new \InvalidArgumentException('Please use a valid sorter: ' . implode($this->sorters));
         }
 
         switch ($sortMethod) {
             case 'created':
+            default:
                 $sorter = new DateCreated();
 
         }
