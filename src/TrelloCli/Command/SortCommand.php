@@ -23,9 +23,9 @@ class SortCommand extends Command
     /**
      * Array of sorters we can use
      *
-     * @var array
+     * @var array<string>
      */
-    protected $sorters = [
+    protected array $sorters = [
         'created'
     ];
 

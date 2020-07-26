@@ -90,7 +90,7 @@ class Client
      *
      * @param string $name The name of the board we want
      *
-     * @return ?array
+     * @return ?array<string,mixed>
      */
     public function getBoardByName($name): ?array
     {
@@ -110,7 +110,7 @@ class Client
      *
      * @param int $boardId Id of the board which the cards are on
      *
-     * @return array
+     * @return array<int,array>
      */
     public function getCards($boardId): array
     {
@@ -123,7 +123,7 @@ class Client
      *
      * @param int $cardId Id of the card
      *
-     * @return array
+     * @return array<int,array>
      */
     public function getCardChecklist($cardId): array
     {
@@ -136,9 +136,9 @@ class Client
      *
      * @param int $cardId Id of the card
      *
-     * @return array
+     * @return array<int,array>
      */
-    public function getCardActions($cardId)
+    public function getCardActions($cardId): array
     {
         $response = $this->httpClient->get('/1/cards/' . $cardId . '/actions');
         return json_decode($response->getBody(), true);
@@ -149,9 +149,9 @@ class Client
      *
      * @param int $cardId Id of the card
      *
-     * @return array
+     * @return array<int,array>
      */
-    public function getCardMembers($cardId)
+    public function getCardMembers($cardId): array
     {
         $response = $this->httpClient->get('/1/cards/' . $cardId . '/members');
         return json_decode($response->getBody(), true);
@@ -163,9 +163,9 @@ class Client
      *
      * @param int $boardId Id of the board which the lists are defined
      *
-     * @return array
+     * @return array<int,array>
      */
-    public function getLists($boardId)
+    public function getLists($boardId): array
     {
         $response = $this->httpClient->get('/1/boards/' . $boardId . '/lists');
         return json_decode($response->getBody(), true);
@@ -176,9 +176,9 @@ class Client
      *
      * @param int $memberId The member id
      *
-     * @return array
+     * @return array<array>
      */
-    public function getMember($memberId)
+    public function getMember($memberId): array
     {
         $response = $this->httpClient->get('/1/members/' . $memberId);
         return json_decode($response->getBody(), true);

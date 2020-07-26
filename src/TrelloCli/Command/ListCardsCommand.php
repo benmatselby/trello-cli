@@ -26,7 +26,7 @@ class ListCardsCommand extends Command
     /**
      * Array of sorters we can use
      *
-     * @var array
+     * @var array<string>
      */
     protected $sorters = [
         'created'

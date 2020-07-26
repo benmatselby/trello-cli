@@ -14,9 +14,9 @@ interface Filter
     /**
      * Filter cards based on some criteria
      *
-     * @param array $cards The cards from the Trello API
+     * @param array<int,array> $cards The cards from the Trello API
      *
-     * @return array
+     * @return array<int,array>
      */
-    public function filter(array $cards);
+    public function filter(array $cards): array;
 }

@@ -47,7 +47,7 @@ class JsonExportBoardCommand extends Command
      *
      * @inheritdoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $boardNames = $input->getOption('board');
 
@@ -68,9 +68,9 @@ class JsonExportBoardCommand extends Command
      *
      * @param string $boardName The board name of the board we want to collate data for
      *
-     * @return array
+     * @return array<string, array<int|string, array<string, mixed>>|string>
      */
-    protected function buildBoard($boardName)
+    protected function buildBoard($boardName): array
     {
         $board = $this->client->getBoardByName($boardName);
 
