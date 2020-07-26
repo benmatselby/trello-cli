@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Sort the cards in certain ways
  */
@@ -42,7 +43,7 @@ class SortCommand extends Command
                 'by',
                 null,
                 InputOption::VALUE_REQUIRED,
-                'Options include ('.$sorters.')'
+                'Options include (' . $sorters . ')'
             );
     }
 
@@ -64,7 +65,6 @@ class SortCommand extends Command
             case 'created':
             default:
                 $sorter = new DateCreated();
-
         }
 
         $client = Client::instance();

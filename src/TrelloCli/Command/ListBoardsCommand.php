@@ -1,4 +1,5 @@
 <?php
+
 /**
  * List boards command
  */
@@ -49,7 +50,7 @@ class ListBoardsCommand extends Command
             $name = $board['name'];
 
             if ($board['closed']) {
-                $name =  'Closed - '.$name;
+                $name =  'Closed - ' . $name;
                 if ($hideClosed) {
                     continue;
                 }

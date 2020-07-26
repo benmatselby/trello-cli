@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Create a board in trello
  */
@@ -20,8 +21,8 @@ use TrelloCli\Client;
  */
 class CreateBoardCommand extends Command
 {
-    const FORMAT_CSV = 'csv';
-    const FORMAT_TAB = 'tab';
+    public const FORMAT_CSV = 'csv';
+    public const FORMAT_TAB = 'tab';
 
     /**
      * Configure the command
@@ -31,7 +32,8 @@ class CreateBoardCommand extends Command
         $this
             ->setName('board:create')
             ->setDescription(
-                'Create a board based on a file in csv|tab format. Format should be: ID, Story Points, Title, Description'
+                'Create a board based on a file in csv|tab format. Format should be: '
+                . 'ID, Story Points, Title, Description'
             )
             ->addArgument('name', InputArgument::REQUIRED, 'The board name')
             ->addArgument('file', InputArgument::OPTIONAL, 'The text file location', '/tmp/trello.txt')

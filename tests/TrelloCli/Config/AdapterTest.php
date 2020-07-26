@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Trello Config Adapter Test File
  */

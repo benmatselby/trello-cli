@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Date Created Sorter
  */
@@ -22,7 +23,7 @@ class DateCreated implements Sorter
             $created = new \DateTime();
             $created->setTimestamp(hexdec(substr($card['id'], 0, 8)));
 
-            $card['name'] = $created->format('Y-m-d H:i:s').' '.$card['name'];
+            $card['name'] = $created->format('Y-m-d H:i:s') . ' ' . $card['name'];
             $data[$created->getTimestamp()] = $card;
         }
 
