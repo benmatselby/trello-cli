@@ -53,5 +53,9 @@ security-check: ## Security checker on dependencies
 	./bin/security-checker security:check
 
 .PHONY: docker-build
-docker-build: ## Build the docker container
+docker-build: ## Build the docker image
 	docker build -t benmatselby/trello-cli .
+
+.PHONY: docker-run
+docker-run: ## Run the docker image
+	docker run --rm -eTRELLO_CLI_KEY -eTRELLO_CLI_SECRET benmatselby/trello-cli board:list -s
