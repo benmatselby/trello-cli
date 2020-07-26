@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Order interface
- */
-
 namespace TrelloCli;
 
 /**

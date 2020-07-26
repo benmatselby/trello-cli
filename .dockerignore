@@ -1,6 +1,5 @@
 build
 tests
-config
 phpunit.xml.dist
 README.md
 .git

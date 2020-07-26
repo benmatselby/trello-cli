@@ -1,9 +1,5 @@
 <?php
 
-/**
- * List boards command
- */
-
 namespace TrelloCli\Command;
 
 use Symfony\Component\Console\Command\Command;

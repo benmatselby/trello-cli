@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Sort the cards in certain ways
- */
-
 namespace TrelloCli\Command;
 
 use Symfony\Component\Console\Command\Command;

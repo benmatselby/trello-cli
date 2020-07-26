@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Give me some column stats for the burndown
- */
-
 namespace TrelloCli\Command;
 
 use Symfony\Component\Console\Command\Command;

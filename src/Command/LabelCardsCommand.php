@@ -1,9 +1,5 @@
 <?php
 
-/**
- * List all the cards by label for a given board
- */
-
 namespace TrelloCli\Command;
 
 use Symfony\Component\Console\Command\Command;

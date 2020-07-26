@@ -1,9 +1,5 @@
 <?php
 
-/**
- * List cards command
- */
-
 namespace TrelloCli\Command;
 
 use Symfony\Component\Console\Command\Command;
@@ -127,9 +123,10 @@ class ListCardsCommand extends Command
             $boardLayout[$card['idList']]['cards'][] = trim($cardName);
         }
 
-        $boardName = $boardName . ' (' . count($cards) . ')' ;
-        $output->writeln($boardName);
-        $output->writeln(str_repeat("=", strlen($boardName)) . PHP_EOL);
+        $title = sprintf("%s (%d)", $boardName, (int) count($cards));
+
+        $output->writeln($title);
+        $output->writeln(str_repeat("=", strlen($title)) . PHP_EOL);
 
         foreach ($boardLayout as $layout) {
             $listName = $layout['name'] . ' (' . count($layout['cards']) . ')';

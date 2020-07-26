@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Date Created Sorter
- */
-
 namespace TrelloCli\Sorter;
 
 use TrelloCli\Sorter;
@@ -25,7 +21,7 @@ class DateCreated implements Sorter
         $data = [];
         foreach ($cards as $card) {
             $created = new \DateTime();
-            $created->setTimestamp(hexdec(substr($card['id'], 0, 8)));
+            $created->setTimestamp((int) hexdec(substr($card['id'], 0, 8)));
 
             $card['name'] = $created->format('Y-m-d H:i:s') . ' ' . $card['name'];
             $data[$created->getTimestamp()] = $card;
