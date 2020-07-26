@@ -22,5 +22,8 @@ jobs:
       - name: Lint
         run: make lint
 
+      - name: Static analysis
+        run: make static-phpstan
+
       - name: Test
         run: make test
