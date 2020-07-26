@@ -30,15 +30,11 @@ clean: ## Clean the local dependencies
 install: ## Install the local dependencies
 	mkdir -p build/coverage
 	mkdir -p build/logs
-	docker run --rm --interactive --tty \
-		--volume $$(pwd):/app \
-		composer install
+	composer install
 
 .PHONY: composer-outdated
 composer-outdated: ## Proxy composer command
-	docker run --rm --interactive --tty \
-		--volume $$(pwd):/app \
-		composer outdated
+	composer outdated
 
 .PHONY: test
 test: ## Run the unit tests
