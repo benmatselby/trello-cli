@@ -1,4 +1,5 @@
 <?php
+
 /**
  * List cards command
  */
@@ -64,7 +65,7 @@ class ListCardsCommand extends Command
                 'sort',
                 null,
                 InputOption::VALUE_OPTIONAL,
-                'Options include ('.implode(', ',$this->sorters).')'
+                'Options include (' . implode(', ', $this->sorters) . ')'
             );
     }
 
@@ -90,7 +91,6 @@ class ListCardsCommand extends Command
             case 'created':
                 $sorter = new DateCreated();
                 $cards = $sorter->sort($cards);
-
         }
 
         if (!empty($ignoreLabels)) {

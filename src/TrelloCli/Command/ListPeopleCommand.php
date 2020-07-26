@@ -1,4 +1,5 @@
 <?php
+
 /**
  * List the people on the board, and the cards they have assigned
  */
@@ -76,7 +77,6 @@ class ListPeopleCommand extends Command
                     $members[$cardMemberId]['storyPoints'] =
                         (float) $members[$cardMemberId]['storyPoints'] + $points[1];
                 }
-
             }
         }
 

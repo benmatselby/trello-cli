@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Json board exporter command
  */

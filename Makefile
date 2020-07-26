@@ -44,6 +44,10 @@ lint: ## Lint the PHP files
 static-phpstan: ## Static analysis of the codebase
 	./bin/phpstan analyse src tests
 
+.PHONY: static-phpcs
+static-phpcs: ## Static analysis phpcs
+	./bin/phpcs --standard=PSR12 src tests
+
 .PHONY: test
 test: ## Run the unit tests
 	bin/phpunit

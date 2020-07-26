@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Filter cards out based on labels
  */
