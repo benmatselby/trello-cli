@@ -139,6 +139,6 @@ class ListCardsCommand extends Command
             $output->writeln('' . PHP_EOL);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

@@ -77,6 +77,6 @@ class BurndownCommand extends Command
             ->setRows($lists);
         $table->render();
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

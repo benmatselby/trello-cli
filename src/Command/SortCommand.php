@@ -73,6 +73,6 @@ class SortCommand extends Command
             $output->writeln('* ' . $card['name']);
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }

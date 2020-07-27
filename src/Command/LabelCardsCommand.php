@@ -68,6 +68,6 @@ class LabelCardsCommand extends Command
             $output->writeln('');
         }
 
-        return 0;
+        return Command::SUCCESS;
     }
 }
