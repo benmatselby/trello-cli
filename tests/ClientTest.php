@@ -3,6 +3,7 @@
 namespace TrelloCli\Test;
 
 use TrelloCli\Client;
+use TrelloCli\Config\Adapter;
 
 /**
  * Trello Client Test Class
@@ -52,7 +53,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      * @covers \TrelloCli\Client::getBoardByName
      * @dataProvider provideDataForBoardByName
      *
-     * @param ?array<string,string> $expected The expected boards
+     * @param array<string,string> $expected The expected boards
      */
     public function testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches(
         string $boardName,
@@ -263,5 +264,42 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $result = $trello->getMember(1234);
 
         $this->assertEquals(['member'], $result);
+    }
+
+    /**
+     * @covers \TrelloCli\Client::instance
+     * @covers \TrelloCli\Client::resetInstance
+     * @covers \TrelloCli\Client::getHttpClient
+     */
+    public function testGetHttpClient(): void
+    {
+        putenv("TRELLO_CLI_KEY=key");
+        putenv("TRELLO_CLI_SECRET=secret");
+        $config = Adapter::getConfig();
+
+        $trello = Client::instance($config);
+        $this->assertInstanceOf('\GuzzleHttp\Client', $trello->getHttpClient());
+        $httpClientConfig = $trello->getHttpClient()->getConfig();
+        $this->assertEquals(['key' => 'key', 'token' => 'secret'], $httpClientConfig['query']);
+
+        putenv("TRELLO_CLI_KEY=key2");
+        putenv("TRELLO_CLI_SECRET=secret2");
+
+        $config = Adapter::getConfig();
+        $trello = Client::instance($config);
+        $this->assertInstanceOf('\GuzzleHttp\Client', $trello->getHttpClient());
+        $httpClientConfig = $trello->getHttpClient()->getConfig();
+        $this->assertEquals(['key' => 'key', 'token' => 'secret'], $httpClientConfig['query']);
+
+        $trello->resetInstance();
+
+        putenv("TRELLO_CLI_KEY=key3");
+        putenv("TRELLO_CLI_SECRET=secret3");
+
+        $config = Adapter::getConfig();
+        $trello = Client::instance($config);
+        $this->assertInstanceOf('\GuzzleHttp\Client', $trello->getHttpClient());
+        $httpClientConfig = $trello->getHttpClient()->getConfig();
+        $this->assertEquals(['key' => 'key3', 'token' => 'secret3'], $httpClientConfig['query']);
     }
 }
