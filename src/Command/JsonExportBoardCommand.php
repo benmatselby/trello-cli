@@ -56,7 +56,7 @@ class JsonExportBoardCommand extends Command
 
         $output->writeln(json_encode($boards));
 
-        return 0;
+        return Command::SUCCESS;
     }
 
     /**
