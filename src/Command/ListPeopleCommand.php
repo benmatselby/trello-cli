@@ -18,6 +18,20 @@ use TrelloCli\Client;
 class ListPeopleCommand extends Command
 {
     /**
+     * The TrelloCLI Client
+     */
+    private Client $client;
+
+    /**
+     * Constructor for the command
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+        parent::__construct();
+    }
+
+    /**
      * Configure the command
      */
     protected function configure(): void
@@ -41,26 +55,25 @@ class ListPeopleCommand extends Command
         $hideCards = $input->getOption('hide-cards');
         $showUnassigned = $input->getOption('show-unassigned');
 
-        $client = Client::instance();
-        $board = $client->getBoardByName($boardName);
+        $board = $this->client->getBoardByName($boardName);
 
         $members = [];
         $lists = [];
-        $boardLists = $client->getLists($board['id']);
+        $boardLists = $this->client->getLists($board['id']);
 
         foreach ($boardLists as $boardList) {
             $lists[$boardList['id']] = $boardList['name'];
         }
 
         foreach ($board['memberships'] as $membership) {
-            $member = $client->getMember($membership['idMember']);
+            $member = $this->client->getMember($membership['idMember']);
             $members[$member['id']]['name'] = $member['fullName'];
             $members[$member['id']]['cards'] = [];
             $members[$member['id']]['cardCount'] = 0;
             $members[$member['id']]['storyPoints'] = 0;
         }
 
-        $cards = $client->getCards($board['id']);
+        $cards = $this->client->getCards($board['id']);
 
         foreach ($cards as $card) {
             foreach ($card['idMembers'] as $cardMemberId) {

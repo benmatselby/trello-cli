@@ -16,6 +16,20 @@ use TrelloCli\Client;
 class ListBoardsCommand extends Command
 {
     /**
+     * The TrelloCLI Client
+     */
+    private Client $client;
+
+    /**
+     * Constructor for the command
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+        parent::__construct();
+    }
+
+    /**
      * Configure the command
      */
     protected function configure(): void
@@ -39,8 +53,7 @@ class ListBoardsCommand extends Command
         $debug = $input->getOption('debug');
         $hideClosed = $input->getOption('hide-closed');
 
-        $client = Client::instance();
-        $boards = $client->getBoards();
+        $boards = $this->client->getBoards();
 
         foreach ($boards as $board) {
             $name = $board['name'];
@@ -59,7 +72,7 @@ class ListBoardsCommand extends Command
             }
 
             if ($showCards == true) {
-                $cards = $client->getCards($board['id']);
+                $cards = $this->client->getCards($board['id']);
 
                 foreach ($cards as $card) {
                     $output->writeln(' ' . $card['name']);

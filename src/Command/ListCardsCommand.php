@@ -20,6 +20,20 @@ use TrelloCli\Sorter\DateCreated;
 class ListCardsCommand extends Command
 {
     /**
+     * The TrelloCLI Client
+     */
+    private Client $client;
+
+    /**
+     * Constructor for the command
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+        parent::__construct();
+    }
+
+    /**
      * Array of sorters we can use
      *
      * @var array<string>
@@ -78,10 +92,9 @@ class ListCardsCommand extends Command
         $filterLabels = $input->getOption('filter-labels');
         $sortMethod = $input->getOption('sort');
 
-        $client = Client::instance();
-        $board = $client->getBoardByName($boardName);
-        $lists = $client->getLists($board['id']);
-        $cards = $client->getCards($board['id']);
+        $board = $this->client->getBoardByName($boardName);
+        $lists = $this->client->getLists($board['id']);
+        $cards = $this->client->getCards($board['id']);
 
         switch ($sortMethod) {
             case 'created':

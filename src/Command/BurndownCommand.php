@@ -18,6 +18,20 @@ use TrelloCli\Client;
 class BurndownCommand extends Command
 {
     /**
+     * The TrelloCLI Client
+     */
+    private Client $client;
+
+    /**
+     * Constructor for the command
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+        parent::__construct();
+    }
+
+    /**
      * Configure the command
      */
     protected function configure(): void
@@ -41,13 +55,12 @@ class BurndownCommand extends Command
 
         $boardName = $input->getArgument('board-name');
 
-        $client = Client::instance();
-        $board = $client->getBoardByName($boardName);
+        $board = $this->client->getBoardByName($boardName);
         if ($board == null) {
             $output->writeln("Cannot find board " . $boardName);
             return 1;
         }
-        $boardLists = $client->getLists($board['id']);
+        $boardLists = $this->client->getLists($board['id']);
 
         foreach ($boardLists as $boardList) {
             $lists[$boardList['id']]['name'] = $boardList['name'];
@@ -55,7 +68,7 @@ class BurndownCommand extends Command
             $lists[$boardList['id']]['points'] = 0;
         }
 
-        $cards = $client->getCards($board['id']);
+        $cards = $this->client->getCards($board['id']);
 
         foreach ($cards as $card) {
             $lists[$card['idList']]['count'] += 1;
