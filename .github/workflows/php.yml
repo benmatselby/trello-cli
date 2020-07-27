@@ -23,7 +23,9 @@ jobs:
         run: make lint
 
       - name: Static analysis
-        run: make static-phpstan
+        run: |
+          make static-phpstan
+          make static-phpcs
 
       - name: Test
         run: make test
