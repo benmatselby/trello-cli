@@ -16,6 +16,20 @@ use TrelloCli\Client;
 class LabelCardsCommand extends Command
 {
     /**
+     * The TrelloCLI Client
+     */
+    private Client $client;
+
+    /**
+     * Constructor for the command
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+        parent::__construct();
+    }
+
+    /**
      * Configure the command
      */
     protected function configure(): void
@@ -36,8 +50,7 @@ class LabelCardsCommand extends Command
         $boardLayout = [];
         $boardName = $input->getArgument('board-name');
 
-        $client = Client::instance();
-        $board = $client->getBoardByName($boardName);
+        $board = $this->client->getBoardByName($boardName);
 
         foreach ($board['labelNames'] as $color => $label) {
             if ($label == '') {
@@ -50,7 +63,7 @@ class LabelCardsCommand extends Command
             ];
         }
 
-        $cards = $client->getCards($board['id']);
+        $cards = $this->client->getCards($board['id']);
 
         $output->writeln($boardName . ' (' . count($cards) . ')' . PHP_EOL);
         foreach ($cards as $card) {

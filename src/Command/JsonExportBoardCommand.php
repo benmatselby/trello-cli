@@ -16,11 +16,18 @@ use TrelloCli\Client;
 class JsonExportBoardCommand extends Command
 {
     /**
-     * The Trello Client
-     *
-     * @var \TrelloCli\Client
+     * The TrelloCLI Client
      */
-    protected $client;
+    private Client $client;
+
+    /**
+     * Constructor for the command
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+        parent::__construct();
+    }
 
     /**
      * Configure the command
@@ -46,8 +53,6 @@ class JsonExportBoardCommand extends Command
     protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $boardNames = $input->getOption('board');
-
-        $this->client = Client::instance();
         $boards = [];
 
         foreach ($boardNames as $boardName) {

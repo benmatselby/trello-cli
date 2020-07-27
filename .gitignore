@@ -1,6 +1,13 @@
-config/config.php
+# Dependencies
 vendor/
+
+# Binary applications
 bin/
+!bin/trello.php
+
+# Build dir
 build/
+
+# IDEs
 .idea/
 trello-cli.code-workspace

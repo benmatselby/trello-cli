@@ -17,6 +17,11 @@ use TrelloCli\Sorter\DateCreated;
 class SortCommand extends Command
 {
     /**
+     * The TrelloCLI Client
+     */
+    private Client $client;
+
+    /**
      * Array of sorters we can use
      *
      * @var array<string>
@@ -24,6 +29,15 @@ class SortCommand extends Command
     protected array $sorters = [
         'created'
     ];
+
+    /**
+     * Constructor for the command
+     */
+    public function __construct(Client $client)
+    {
+        $this->client = $client;
+        parent::__construct();
+    }
 
     /**
      * Configure the command
@@ -63,10 +77,8 @@ class SortCommand extends Command
                 $sorter = new DateCreated();
         }
 
-        $client = Client::instance();
-        $board = $client->getBoardByName($boardName);
-
-        $cards = $client->getCards($board['id']);
+        $board = $this->client->getBoardByName($boardName);
+        $cards = $this->client->getCards($board['id']);
         $cards = $sorter->sort($cards);
 
         foreach ($cards as $card) {
