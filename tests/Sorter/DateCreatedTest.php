@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Date Created Sorter Test File
- */
-
 namespace TrelloCli\Test\Sorter;
 
 use TrelloCli\Sorter\DateCreated;

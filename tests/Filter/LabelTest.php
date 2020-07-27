@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Label Filter Test File
- */
-
 namespace TrelloCli\Test\Filter;
 
 use TrelloCli\Filter\Label;

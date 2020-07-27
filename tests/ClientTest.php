@@ -1,9 +1,5 @@
 <?php
 
-/**
- * Trello Client Test File
- */
-
 namespace TrelloCli\Test;
 
 use TrelloCli\Client;
