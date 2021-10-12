@@ -16,6 +16,13 @@ updates:
     commit-message:
       prefix: "docker"
 
+  - package-ecosystem: "docker"
+    directory: "/.devcontainer/"
+    schedule:
+      interval: "weekly"
+    commit-message:
+      prefix: "docker"
+
   # Maintain dependencies for php
   - package-ecosystem: "composer"
     directory: "/"

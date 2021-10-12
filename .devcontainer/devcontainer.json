@@ -1,0 +1,42 @@
+// For format details, see https://aka.ms/devcontainer.json. For config options, see the README at:
+// https://github.com/microsoft/vscode-dev-containers/tree/v0.202.1/containers/php
+{
+  "name": "trello-cli-dev",
+  "runArgs": ["--name=trello-cli-dev"],
+  "build": {
+    "dockerfile": "Dockerfile",
+    "args": {
+      // Update VARIANT to pick a PHP version: 8, 8.0, 7, 7.4, 7.3
+      // Append -bullseye or -buster to pin to an OS version.
+      // Use -bullseye variants on local on arm64/Apple Silicon.
+      "VARIANT": "8",
+      "NODE_VERSION": "16"
+    }
+  },
+  "containerEnv": {
+    "GITHUB_TOKEN": "${localEnv:GITHUB_TOKEN}",
+    "GITHUB_USER": "${localEnv:GITHUB_USER}",
+    "TRELLO_CLI_KEY": "${localEnv:TRELLO_CLI_KEY}",
+    "TRELLO_CLI_SECRET": "${localEnv:TRELLO_CLI_SECRET}"
+  },
+  "settings": {
+    "php.validate.executablePath": "/usr/local/bin/php",
+    "editor.tabSize": 4
+  },
+  // Add the IDs of extensions you want installed when the container is created.
+  "extensions": [
+    "bmewburn.vscode-intelephense-client",
+    "davidanson.vscode-markdownlint",
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "felixfbecker.php-debug",
+    "ikappas.phpcs",
+    "ms-azuretools.vscode-docker",
+    "timonwong.shellcheck",
+    "tyriar.sort-lines"
+  ],
+  "features": {
+    "git": "latest",
+    "github-cli": "latest"
+  }
+}
