@@ -8,6 +8,9 @@ bin/
 # Build dir
 build/
 
+# Caches
+.phpunit.result.cache
+
 # IDEs
 .idea/
 trello-cli.code-workspace
