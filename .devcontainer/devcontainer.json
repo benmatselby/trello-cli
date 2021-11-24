@@ -21,7 +21,9 @@
   },
   "settings": {
     "php.validate.executablePath": "/usr/local/bin/php",
-    "editor.tabSize": 4
+    "editor.tabSize": 4,
+    "phpcs.executablePath": "bin/phpcs",
+    "phpcs.standard": "PSR12"
   },
   // Add the IDs of extensions you want installed when the container is created.
   "extensions": [
