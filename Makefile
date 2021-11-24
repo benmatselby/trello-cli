@@ -59,10 +59,6 @@ test: ## Run the unit tests
 test-cov: ## Run the unit tests with code coverage
 	bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml --coverage-text
 
-.PHONY: security-check
-security-check: ## Security checker on dependencies
-	./bin/security-checker security:check
-
 .PHONY: docker-build
 docker-build: ## Build the docker image
 	docker build -t benmatselby/trello-cli .
