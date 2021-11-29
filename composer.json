@@ -3,7 +3,7 @@
   "description": "Small Trello CLI application for creating sprint boards based and management tools",
   "require": {
     "symfony/console": "^5.1",
-    "guzzlehttp/guzzle": "7.3.*"
+    "guzzlehttp/guzzle": "7.4.*"
   },
   "require-dev": {
     "phpunit/phpunit": "^9.2",
