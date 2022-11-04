@@ -45,7 +45,7 @@ static: static-phpcs static-phpstan ## Run all the static analysis
 
 .PHONY: static-phpstan
 static-phpstan: ## Static analysis of the codebase
-	./bin/phpstan analyse src tests
+	./bin/phpstan analyse src tests --xdebug
 
 .PHONY: static-phpcs
 static-phpcs: ## Static analysis phpcs
