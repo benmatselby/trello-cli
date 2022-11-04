@@ -59,7 +59,8 @@ class JsonExportBoardCommand extends Command
             $boards[] = $this->buildBoard($boardName);
         }
 
-        $output->writeln(json_encode($boards));
+        $output->writeln((string) json_encode($boards));
+
 
         return Command::SUCCESS;
     }
