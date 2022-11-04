@@ -11,9 +11,9 @@ interface Sorter
      * Sort the cards in a given way and then return the data back
      * in the same data structure
      *
-     * @param array<int,array> $cards The cards to be sorted
+     * @param array<mixed> $cards The cards to be sorted
      *
-     * @return array<int,array>
+     * @return array<mixed>
      */
     public function sort(array $cards);
 }
