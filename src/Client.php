@@ -73,7 +73,7 @@ class Client
     /**
      * Getter for the Boards
      *
-     * @return array<int,array>
+     * @return array<int,mixed>
      */
     public function getBoards(): array
     {
@@ -86,7 +86,7 @@ class Client
      *
      * @param string $name The name of the board we want
      *
-     * @return array<string,mixed>
+     * @return array<mixed>
      */
     public function getBoardByName($name): ?array
     {
@@ -106,7 +106,7 @@ class Client
      *
      * @param int $boardId Id of the board which the cards are on
      *
-     * @return array<int,array>
+     * @return array<mixed>
      */
     public function getCards($boardId): array
     {
@@ -119,7 +119,7 @@ class Client
      *
      * @param int $cardId Id of the card
      *
-     * @return array<int,array>
+     * @return array<mixed>
      */
     public function getCardChecklist($cardId): array
     {
@@ -132,7 +132,7 @@ class Client
      *
      * @param int $cardId Id of the card
      *
-     * @return array<int,array>
+     * @return array<mixed>
      */
     public function getCardActions($cardId): array
     {
@@ -145,7 +145,7 @@ class Client
      *
      * @param int $cardId Id of the card
      *
-     * @return array<int,array>
+     * @return array<mixed>
      */
     public function getCardMembers($cardId): array
     {
@@ -159,7 +159,7 @@ class Client
      *
      * @param int $boardId Id of the board which the lists are defined
      *
-     * @return array<int,array>
+     * @return array<mixed>
      */
     public function getLists($boardId): array
     {
@@ -172,7 +172,7 @@ class Client
      *
      * @param int $memberId The member id
      *
-     * @return array<array>
+     * @return array<mixed>
      */
     public function getMember($memberId): array
     {

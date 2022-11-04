@@ -10,9 +10,9 @@ interface Filter
     /**
      * Filter cards based on some criteria
      *
-     * @param array<int,array> $cards The cards from the Trello API
+     * @param array<mixed> $cards The cards from the Trello API
      *
-     * @return array<int,array>
+     * @return array<mixed>
      */
     public function filter(array $cards): array;
 }

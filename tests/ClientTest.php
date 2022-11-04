@@ -84,7 +84,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     /**
      * Data provider for testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches
      *
-     * @return array<string,array>
+     * @return array<string,mixed>
      */
     public function provideDataForBoardByName(): array
     {

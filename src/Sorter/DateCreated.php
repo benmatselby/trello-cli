@@ -12,9 +12,9 @@ class DateCreated implements Sorter
     /**
      * @inheritdoc
      *
-     * @param array<int,array> $cards The cards to be sorted
+     * @param array<mixed> $cards The cards to be sorted
      *
-     * @return array<int,array>
+     * @return array<mixed>
      */
     public function sort(array $cards): array
     {
