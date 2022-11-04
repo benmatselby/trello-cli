@@ -57,7 +57,7 @@ test: ## Run the unit tests
 
 .PHONY: test-cov
 test-cov: ## Run the unit tests with code coverage
-	bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml --coverage-text
+	XDEBUG_MODE=coverage bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml --coverage-text
 
 .PHONY: docker-build
 docker-build: ## Build the docker image

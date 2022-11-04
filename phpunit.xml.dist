@@ -1,22 +1,14 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<phpunit
-    backupGlobals="false"
-    bootstrap="tests/bootstrap.php"
-    colors="true"
-    forceCoversAnnotation="true"
-    processIsolation="false">
-
-    <testsuite name="TrelloCli">
-        <directory suffix="Test.php">tests</directory>
-    </testsuite>
-
-    <filter>
-        <whitelist>
-            <directory suffix=".php">src/</directory>
-            <exclude>
-                <directory>src/TrelloCli/Command</directory>
-            </exclude>
-        </whitelist>
-    </filter>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" bootstrap="tests/bootstrap.php" colors="true" forceCoversAnnotation="true" processIsolation="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/9.3/phpunit.xsd">
+  <coverage>
+    <include>
+      <directory suffix=".php">src/</directory>
+    </include>
+    <exclude>
+      <directory>src/TrelloCli/Command</directory>
+    </exclude>
+  </coverage>
+  <testsuite name="TrelloCli">
+    <directory suffix="Test.php">tests</directory>
+  </testsuite>
 </phpunit>
