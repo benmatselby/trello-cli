@@ -84,7 +84,7 @@ class ListPeopleCommand extends Command
 
                 if (!empty($points) && isset($points[1])) {
                     $members[$cardMemberId]['storyPoints'] =
-                        (float) $members[$cardMemberId]['storyPoints'] + $points[1];
+                        (float) $members[$cardMemberId]['storyPoints'] + (float) $points[1];
                 }
             }
         }
