@@ -8,7 +8,7 @@ Small Trello CLI application for managing a the Trello board in a SCRUM environm
 
 ## Requirements
 
-- [PHP version 8+](https://www.php.net), or [Docker](https://www.docker.com).
+- [PHP version 8.2+](https://www.php.net), or [Docker](https://www.docker.com).
 - API Tokens from Trello. You can get this information from [here](https://trello.com/app-key).
 
 ## Environment variables
