@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" bootstrap="tests/bootstrap.php" colors="true" processIsolation="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.0/phpunit.xsd" cacheDirectory=".phpunit.cache" requireCoverageMetadata="true">
-  <coverage>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" backupGlobals="false" bootstrap="tests/bootstrap.php" colors="true" processIsolation="false" xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/10.3/phpunit.xsd" cacheDirectory=".phpunit.cache" requireCoverageMetadata="true">
+  <coverage/>
+  <testsuite name="TrelloCli">
+    <directory suffix="Test.php">tests</directory>
+  </testsuite>
+  <source>
     <include>
       <directory suffix=".php">src/</directory>
     </include>
     <exclude>
       <directory>src/TrelloCli/Command</directory>
     </exclude>
-  </coverage>
-  <testsuite name="TrelloCli">
-    <directory suffix="Test.php">tests</directory>
-  </testsuite>
+  </source>
 </phpunit>
