@@ -84,5 +84,5 @@ docker-run: ## Run the docker image
 
 .PHONY: docker-scan
 docker-scan: ## Scan the docker image
-	docker scout recommendations
-	docker scout quickview
+	docker scout recommendations $(DOCKER_PREFIX)/$(NAME)
+	docker scout quickview $(DOCKER_PREFIX)/$(NAME)
