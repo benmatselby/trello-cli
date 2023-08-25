@@ -4,7 +4,7 @@ jobs:
   build:
     strategy:
       matrix:
-        php-version: [8.1]
+        php-version: [8.2]
     runs-on: ubuntu-latest
     name: Build
     steps:
