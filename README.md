@@ -20,7 +20,29 @@ export TRELLO_CLI_KEY=""
 export TRELLO_CLI_SECRET=""
 ```
 
-## Installation via Git
+## Installation
+
+You can install this application a few ways:
+
+<details>
+<summary>Installation via Docker</summary>
+
+Other than requiring [docker](http://docker.com) to be installed, there are no other requirements to run the application this way.
+
+```shell
+$ docker build -t benmatselby/walter .
+$ docker run \
+  --rm \
+  -t \
+  -eTRELLO_CLI_KEY \
+  -eTRELLO_CLI_SECRET \
+  benmatselby/trello-cli:latest "$@"
+```
+
+</details>
+
+<details>
+<summary>Installation via Git</summary>
 
 ```shell
 git clone https://github.com/benmatselby/trello-cli.git
@@ -29,9 +51,4 @@ make clean install
 bin/trello.php board:list -s
 ```
 
-## Installation via Docker
-
-```shell
-make docker-build
-docker run --rm -eTRELLO_CLI_KEY -eTRELLO_CLI_SECRET benmatselby/trello-cli board:list -s
-```
+</details>
