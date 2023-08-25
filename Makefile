@@ -78,11 +78,15 @@ test-cov: ## Run the unit tests with code coverage
 docker-build: ## Build the docker image
 	docker build -t $(DOCKER_PREFIX)/$(NAME) $(DOCKER_PLATFORM) .
 
-.PHONY: docker-run
-docker-run: ## Run the docker image
-	docker run --rm -eTRELLO_CLI_KEY -eTRELLO_CLI_SECRET $(DOCKER_PREFIX)/$(NAME) board:list -s
+.PHONY: docker-push
+docker-push:
+	docker push $(DOCKER_PREFIX)/$(NAME):$(DOCKER_RELEASE)
 
 .PHONY: docker-scan
 docker-scan: ## Scan the docker image
 	docker scout recommendations $(DOCKER_PREFIX)/$(NAME)
 	docker scout quickview $(DOCKER_PREFIX)/$(NAME)
+
+.PHONY: docker-run
+docker-run: ## Run the docker image
+	docker run --rm -eTRELLO_CLI_KEY -eTRELLO_CLI_SECRET $(DOCKER_PREFIX)/$(NAME) board:list -s
