@@ -1,3 +1,8 @@
+NAME := trello-cli
+DOCKER_PREFIX = benmatselby
+DOCKER_RELEASE ?= latest
+DOCKER_PLATFORM ?= --platform=amd64
+
 explain:
 	### Welcome
 	#
@@ -61,8 +66,8 @@ test-cov: ## Run the unit tests with code coverage
 
 .PHONY: docker-build
 docker-build: ## Build the docker image
-	docker build -t benmatselby/trello-cli .
+	docker build -t $(DOCKER_PREFIX)/$(NAME) $(DOCKER_PLATFORM) .
 
 .PHONY: docker-run
 docker-run: ## Run the docker image
-	docker run --rm -eTRELLO_CLI_KEY -eTRELLO_CLI_SECRET benmatselby/trello-cli board:list -s
+	docker run --rm -eTRELLO_CLI_KEY -eTRELLO_CLI_SECRET $(DOCKER_PREFIX)/$(NAME) board:list -s
