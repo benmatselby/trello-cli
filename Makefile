@@ -41,6 +41,11 @@ install: ## Install the local dependencies
 composer-outdated: ## Proxy composer command
 	composer outdated
 
+
+###
+# Quality
+###
+
 .PHONY: lint
 lint: ## Lint the PHP files
 	find src -name "*.php" -print0 | xargs -0 -n1 -P4 php -l
@@ -64,6 +69,11 @@ test: ## Run the unit tests
 test-cov: ## Run the unit tests with code coverage
 	XDEBUG_MODE=coverage bin/phpunit --coverage-html=build/coverage/ --log-junit=build/logs/junit.xml --coverage-text
 
+
+###
+# Docker
+###
+
 .PHONY: docker-build
 docker-build: ## Build the docker image
 	docker build -t $(DOCKER_PREFIX)/$(NAME) $(DOCKER_PLATFORM) .
@@ -71,3 +81,8 @@ docker-build: ## Build the docker image
 .PHONY: docker-run
 docker-run: ## Run the docker image
 	docker run --rm -eTRELLO_CLI_KEY -eTRELLO_CLI_SECRET $(DOCKER_PREFIX)/$(NAME) board:list -s
+
+.PHONY: docker-scan
+docker-scan: ## Scan the docker image
+	docker scout recommendations
+	docker scout quickview
