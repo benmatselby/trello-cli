@@ -86,7 +86,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
      *
      * @return array<string,mixed>
      */
-    public function provideDataForBoardByName(): array
+    public static function provideDataForBoardByName(): array
     {
         return [
             'Standard name check' => [
