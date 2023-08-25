@@ -10,7 +10,7 @@
       // Append -bullseye or -buster to pin to an OS version.
       // Use -bullseye variants on local on arm64/Apple Silicon.
       "VARIANT": "8.2",
-      "NODE_VERSION": "16"
+      "NODE_VERSION": "18"
     }
   },
   "containerEnv": {
@@ -19,24 +19,30 @@
     "TRELLO_CLI_KEY": "${localEnv:TRELLO_CLI_KEY}",
     "TRELLO_CLI_SECRET": "${localEnv:TRELLO_CLI_SECRET}"
   },
-  "settings": {
-    "php.validate.executablePath": "/usr/local/bin/php",
-    "editor.tabSize": 4,
-    "phpcs.executablePath": "bin/phpcs",
-    "phpcs.standard": "PSR12"
+  "customizations": {
+    "vscode": {
+      "settings": {
+        "php.validate.executablePath": "/usr/local/bin/php",
+        "editor.tabSize": 4,
+        "phpcs.executablePath": "/workspaces/trello-cli/bin/phpcs",
+        "phpcs.standard": "PSR12"
+      },
+      // Add the IDs of extensions you want installed when the container is created.
+      "extensions": [
+        "bmewburn.vscode-intelephense-client",
+        "davidanson.vscode-markdownlint",
+        "dbaeumer.vscode-eslint",
+        "esbenp.prettier-vscode",
+        "felixfbecker.php-debug",
+        "github.copilot-chat",
+        "github.copilot",
+        "ikappas.phpcs",
+        "ms-azuretools.vscode-docker",
+        "timonwong.shellcheck",
+        "tyriar.sort-lines"
+      ]
+    }
   },
-  // Add the IDs of extensions you want installed when the container is created.
-  "extensions": [
-    "bmewburn.vscode-intelephense-client",
-    "davidanson.vscode-markdownlint",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "felixfbecker.php-debug",
-    "ikappas.phpcs",
-    "ms-azuretools.vscode-docker",
-    "timonwong.shellcheck",
-    "tyriar.sort-lines"
-  ],
   "features": {
     "git": "latest",
     "github-cli": "latest"
