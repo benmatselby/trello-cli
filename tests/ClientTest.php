@@ -2,6 +2,7 @@
 
 namespace TrelloCli\Test;
 
+use GuzzleHttp\Psr7\Stream;
 use TrelloCli\Client;
 use TrelloCli\Config\Adapter;
 
@@ -21,6 +22,19 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
+     * Wrapper to deal with the fact `getBody` needs a stream
+     */
+    protected function getResource(string $value): mixed
+    {
+        $resource = fopen('data://text/plain,' . $value, 'r');
+        if ($resource === false) {
+            $this->fail("Failed to open resource");
+        }
+
+        return $resource;
+    }
+
+    /**
      * @covers \TrelloCli\Client::__construct
      * @covers \TrelloCli\Client::getBoards
      */
@@ -31,7 +45,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $response
             ->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue('["board"]'));
+            ->willReturn(new Stream($this->getResource('["board"]')));
 
         $http = $this
             ->createMock('\GuzzleHttp\Client');
@@ -40,7 +54,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->expects($this->once())
             ->method('request')
             ->with('GET', '/1/members/me/boards')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $trello = new Client($http);
         $result = $trello->getBoards();
@@ -64,7 +78,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $response
             ->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue($boards));
+            ->willReturn(new Stream($this->getResource($boards)));
 
         $http = $this
             ->createMock('\GuzzleHttp\Client');
@@ -73,7 +87,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->expects($this->once())
             ->method('request')
             ->with('GET', '/1/members/me/boards')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $trello = new Client($http);
         $result = $trello->getBoardByName($boardName);
@@ -119,7 +133,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $response
             ->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue('["card"]'));
+            ->willReturn(new Stream($this->getResource('["card"]')));
 
         $http = $this
             ->createMock('\GuzzleHttp\Client');
@@ -128,7 +142,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->expects($this->once())
             ->method('request')
             ->with('GET', '/1/boards/1234/cards')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $trello = new Client($http);
         $result = $trello->getCards(1234);
@@ -146,7 +160,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $response
             ->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue('["card"]'));
+            ->willReturn(new Stream($this->getResource('["card"]')));
 
         $http = $this->createMock('\GuzzleHttp\Client');
 
@@ -154,7 +168,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->expects($this->once())
             ->method('request')
             ->with('GET', '/1/cards/1234/checklists')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $trello = new Client($http);
         $result = $trello->getCardChecklist(1234);
@@ -172,7 +186,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $response
             ->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue('["card"]'));
+            ->willReturn(new Stream($this->getResource('["card"]')));
 
         $http = $this->createMock('\GuzzleHttp\Client');
 
@@ -180,7 +194,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->expects($this->once())
             ->method('request')
             ->with('GET', '/1/cards/1234/actions')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $trello = new Client($http);
         $result = $trello->getCardActions(1234);
@@ -198,7 +212,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $response
             ->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue('["card"]'));
+            ->willReturn(new Stream($this->getResource('["card"]')));
 
         $http = $this->createMock('\GuzzleHttp\Client');
 
@@ -206,7 +220,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->expects($this->once())
             ->method('request')
             ->with('GET', '/1/cards/1234/members')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $trello = new Client($http);
         $result = $trello->getCardMembers(1234);
@@ -224,7 +238,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $response
             ->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue('["list"]'));
+            ->willReturn(new Stream($this->getResource('["list"]')));
 
         $http = $this->createMock('\GuzzleHttp\Client');
 
@@ -232,7 +246,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->expects($this->once())
             ->method('request')
             ->with('GET', '/1/boards/1234/lists')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $trello = new Client($http);
         $result = $trello->getLists(1234);
@@ -250,7 +264,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $response
             ->expects($this->once())
             ->method('getBody')
-            ->will($this->returnValue('["member"]'));
+            ->willReturn(new Stream($this->getResource('["member"]')));
 
         $http = $this->createMock('\GuzzleHttp\Client');
 
@@ -258,7 +272,7 @@ class ClientTest extends \PHPUnit\Framework\TestCase
             ->expects($this->once())
             ->method('request')
             ->with('GET', '/1/members/1234')
-            ->will($this->returnValue($response));
+            ->willReturn($response);
 
         $trello = new Client($http);
         $result = $trello->getMember(1234);
