@@ -2,17 +2,12 @@
 
 namespace TrelloCli\Test\Command;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Command\SortCommand;
-use TrelloCli\Client;
 
-/**
- * Responsible for testing \TrelloCli\Command\SortCommand
- */
+#[CoversClass(SortCommand::class)]
 class SortCommandTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Command\SortCommand::configure
-     */
     public function testConfigure(): void
     {
         $trello = $this->createMock('\TrelloCli\Client');

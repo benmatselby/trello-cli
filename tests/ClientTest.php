@@ -2,16 +2,15 @@
 
 namespace TrelloCli\Test;
 
+use PHPUnit\Framework\Attributes\CoversClass;
+use PHPUnit\Framework\TestCase;
 use GuzzleHttp\Psr7\Stream;
+use PHPUnit\Framework\Attributes\DataProvider;
 use TrelloCli\Client;
 use TrelloCli\Config\Adapter;
 
-/**
- * Trello Client Test Class
- *
- * Responsible for testing \TrelloCli\Client
- */
-class ClientTest extends \PHPUnit\Framework\TestCase
+#[CoversClass(Client::class)]
+class ClientTest extends TestCase
 {
     /**
      * @inheritdoc
@@ -34,10 +33,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         return $resource;
     }
 
-    /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getBoards
-     */
     public function testThatGetBoardsCallsTheBoardsEndPointForMe(): void
     {
         $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
@@ -63,12 +58,9 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getBoardByName
-     * @dataProvider provideDataForBoardByName
-     *
      * @param array<string,string> $expected The expected boards
      */
+    #[DataProvider('provideDataForBoardByName')]
     public function testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches(
         string $boardName,
         string $boards,
@@ -96,8 +88,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
     }
 
     /**
-     * Data provider for testThatGetBoardByNameCallsReturnsTheBoardIfTheNameMatches
-     *
      * @return array<string,mixed>
      */
     public static function provideDataForBoardByName(): array
@@ -123,10 +113,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         ];
     }
 
-    /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getCards
-     */
     public function testThatGetCardsCallsTheBoardsEndPointGivenTheBoardId(): void
     {
         $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
@@ -150,10 +136,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['card'], $result);
     }
 
-    /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getCardChecklist
-     */
     public function testThatGetCardChecklistCallsTheCardChecklistEndPointWithCardId(): void
     {
         $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
@@ -176,10 +158,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['card'], $result);
     }
 
-    /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getCardActions
-     */
     public function testThatGetCardActionsCallsTheCardActionsEndPointWithCardId(): void
     {
         $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
@@ -202,10 +180,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['card'], $result);
     }
 
-    /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getCardMembers
-     */
     public function testThatGetCardMembersCallsTheCardMembersEndPointWithCardId(): void
     {
         $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
@@ -228,10 +202,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['card'], $result);
     }
 
-    /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getLists
-     */
     public function testThatGetListsCallsTheBoardsEndPointGivenTheBoardId(): void
     {
         $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
@@ -254,10 +224,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['list'], $result);
     }
 
-    /**
-     * @covers \TrelloCli\Client::__construct
-     * @covers \TrelloCli\Client::getMember
-     */
     public function testThatGetMeberCallsTheMembersEndPointGivenTheMeberId(): void
     {
         $response = $this->createMock('\Psr\Http\Message\ResponseInterface');
@@ -280,11 +246,6 @@ class ClientTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals(['member'], $result);
     }
 
-    /**
-     * @covers \TrelloCli\Client::instance
-     * @covers \TrelloCli\Client::resetInstance
-     * @covers \TrelloCli\Client::getHttpClient
-     */
     public function testGetHttpClient(): void
     {
         putenv("TRELLO_CLI_KEY=key");

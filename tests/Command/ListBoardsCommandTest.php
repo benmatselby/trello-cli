@@ -2,17 +2,13 @@
 
 namespace TrelloCli\Test\Command;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use Symfony\Component\Console\Tester\CommandTester;
 use TrelloCli\Command\ListBoardsCommand;
 
-/**
- * Responsible for testing \TrelloCli\Command\ListBoardsCommand
- */
+#[CoversClass(ListBoardsCommand::class)]
 class ListBoardsCommandTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Command\ListBoardsCommand::configure
-     */
     public function testConfigure(): void
     {
         $trello = $this->createMock('\TrelloCli\Client');
@@ -26,9 +22,6 @@ class ListBoardsCommandTest extends \PHPUnit\Framework\TestCase
         );
     }
 
-    /**
-     * @covers \TrelloCli\Command\ListBoardsCommand::execute
-     */
     public function testExecuteCanRenderWhatWeWant(): void
     {
         $client = $this->createMock('\TrelloCli\Client');

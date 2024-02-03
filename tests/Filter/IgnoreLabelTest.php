@@ -2,17 +2,12 @@
 
 namespace TrelloCli\Test\Filter;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Filter\IgnoreLabel;
 
-/**
- * Responsible for testing \TrelloCli\Filter\IgnoreLabel
- */
+#[CoversClass(IgnoreLabel::class)]
 class IgnoreLabelTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Filter\IgnoreLabel::setCriteria
-     * @covers \TrelloCli\Filter\IgnoreLabel::filter
-     */
     public function testWeCanFilterCardsIfTheyHaveACertainLabel(): void
     {
         $cards = [

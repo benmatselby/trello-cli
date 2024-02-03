@@ -2,11 +2,10 @@
 
 namespace TrelloCli\Test\Config;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Config\Adapter;
 
-/**
- * Responsible for testing \TrelloCli\Config\Adapter
- */
+#[CoversClass(Adapter::class)]
 class AdapterTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -18,9 +17,6 @@ class AdapterTest extends \PHPUnit\Framework\TestCase
         putenv("TRELLO_CLI_SECRET");
     }
 
-    /**
-     * @covers \TrelloCli\Config\Adapter::getConfig
-     */
     public function testTheDefaultIsEnvironment(): void
     {
         putenv("TRELLO_CLI_KEY=key");
@@ -32,9 +28,6 @@ class AdapterTest extends \PHPUnit\Framework\TestCase
         $this->assertEquals($config->getSecret(), "secret");
     }
 
-    /**
-     * @covers \TrelloCli\Config\Adapter::getConfig
-     */
     public function testTheDefaultIsAnEmptyConfigFile(): void
     {
         $config = Adapter::getConfig();

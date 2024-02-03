@@ -2,17 +2,12 @@
 
 namespace TrelloCli\Test\Command;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Command\ListPeopleCommand;
-use TrelloCli\Client;
 
-/**
- * Responsible for testing \TrelloCli\Command\ListPeopleCommand
- */
+#[CoversClass(ListPeopleCommand::class)]
 class ListPeopleCommandTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Command\ListPeopleCommand::configure
-     */
     public function testConfigure(): void
     {
         $trello = $this->createMock('\TrelloCli\Client');

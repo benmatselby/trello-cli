@@ -2,17 +2,12 @@
 
 namespace TrelloCli\Test\Filter;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Filter\Label;
 
-/**
- * Responsible for testing \TrelloCli\Filter\Label
- */
+#[CoversClass(Label::class)]
 class LabelTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Filter\Label::setCriteria
-     * @covers \TrelloCli\Filter\Label::filter
-     */
     public function testWeCanFilterCardsIfTheyHaveACertainLabel(): void
     {
         $cards = [
