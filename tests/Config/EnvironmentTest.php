@@ -2,13 +2,10 @@
 
 namespace TrelloCli\Test\Config;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Config\Environment;
 
-/**
- * Trello Config Environment Test Class
- *
- * Responsible for testing \TrelloCli\Config\Environment
- */
+#[CoversClass(Environment::class)]
 class EnvironmentTest extends \PHPUnit\Framework\TestCase
 {
     /**
@@ -20,9 +17,6 @@ class EnvironmentTest extends \PHPUnit\Framework\TestCase
         putenv('TRELLO_CLI_SECRET');
     }
 
-    /**
-     * @covers \TrelloCli\Config\Environment::build
-     */
     public function testWeCanGetConfigFromTheEnvironment(): void
     {
         putenv('TRELLO_CLI_KEY=my-key-env');

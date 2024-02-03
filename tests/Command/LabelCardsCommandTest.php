@@ -2,17 +2,12 @@
 
 namespace TrelloCli\Test\Command;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Command\LabelCardsCommand;
-use TrelloCli\Client;
 
-/**
- * Responsible for testing \TrelloCli\Command\LabelCardsCommand
- */
+#[CoversClass(LabelCardsCommand::class)]
 class LabelCardsCommandTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Command\LabelCardsCommand::configure
-     */
     public function testConfigure(): void
     {
         $trello = $this->createMock('\TrelloCli\Client');

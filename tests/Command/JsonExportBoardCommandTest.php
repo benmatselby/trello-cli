@@ -2,17 +2,12 @@
 
 namespace TrelloCli\Test\Command;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Command\JsonExportBoardCommand;
-use TrelloCli\Client;
 
-/**
- * Responsible for testing \TrelloCli\Command\JsonExportBoardCommand
- */
+#[CoversClass(JsonExportBoardCommand::class)]
 class JsonExportBoardCommandTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Command\JsonExportBoardCommand::configure
-     */
     public function testConfigure(): void
     {
         $trello = $this->createMock('\TrelloCli\Client');

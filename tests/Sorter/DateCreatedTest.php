@@ -2,16 +2,12 @@
 
 namespace TrelloCli\Test\Sorter;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Sorter\DateCreated;
 
-/**
- * Responsible for testing \TrelloCli\Sorter\DateCreated
- */
+#[CoversClass(DateCreated::class)]
 class DateCreatedTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Sorter\DateCreated::sort
-     */
     public function testWeOrderByDateCreated(): void
     {
         $cards = [

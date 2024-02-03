@@ -2,17 +2,12 @@
 
 namespace TrelloCli\Test\Command;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Command\BurndownCommand;
-use TrelloCli\Client;
 
-/**
- * Responsible for testing \TrelloCli\Command\BurndownCommand
- */
+#[CoversClass(BurndownCommand::class)]
 class BurndownCommandTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Command\BurndownCommand::configure
-     */
     public function testConfigure(): void
     {
         $trello = $this->createMock('\TrelloCli\Client');

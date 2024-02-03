@@ -2,23 +2,12 @@
 
 namespace TrelloCli\Test;
 
+use PHPUnit\Framework\Attributes\CoversClass;
 use TrelloCli\Config;
 
-/**
- * Trello Config Test Class
- *
- * Responsible for testing \TrelloCli\Config
- */
+#[CoversClass(Config::class)]
 class ConfigTest extends \PHPUnit\Framework\TestCase
 {
-    /**
-     * @covers \TrelloCli\Config::setSecret
-     * @covers \TrelloCli\Config::getSecret
-     * @covers \TrelloCli\Config::setKey
-     * @covers \TrelloCli\Config::getKey
-     * @covers \TrelloCli\Config::isValid
-     * @covers \TrelloCli\Config::setValid
-     */
     public function testSettersAndGetters(): void
     {
         $config = new Config();
