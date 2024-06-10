@@ -1,4 +1,4 @@
-FROM php:8.3.7-cli-alpine
+FROM php:8.3.8-cli-alpine
 
 RUN apk update && apk add git make
 
