@@ -24,7 +24,7 @@ class Client
     /**
      * Constructor
      */
-    public function __construct(\GuzzleHttp\Client $httpClient = null)
+    public function __construct(?\GuzzleHttp\Client $httpClient = null)
     {
         $this->httpClient = $httpClient;
     }
@@ -36,7 +36,7 @@ class Client
      *
      * @return Client
      */
-    public static function instance(Config $config = null): Client
+    public static function instance(?Config $config = null): Client
     {
         if (self::$instance == null) {
             $httpClient = new HttpClient([
