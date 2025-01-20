@@ -28,6 +28,6 @@ class DateCreated implements Sorter
         }
 
         sort($data);
-        return array_values($data);
+        return $data;
     }
 }
