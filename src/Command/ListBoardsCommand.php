@@ -47,7 +47,7 @@ class ListBoardsCommand extends Command
      *
      * @inheritdoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $showCards = $input->getOption('cards');
         $debug = $input->getOption('debug');

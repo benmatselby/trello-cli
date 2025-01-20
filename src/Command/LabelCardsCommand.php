@@ -45,7 +45,7 @@ class LabelCardsCommand extends Command
      *
      * @inheritdoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $boardLayout = [];
         $boardName = $input->getArgument('board-name');
