@@ -49,7 +49,7 @@ class ListPeopleCommand extends Command
      *
      * @inheritdoc
      */
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $boardName = $input->getArgument('board-name');
         $hideCards = $input->getOption('hide-cards');
