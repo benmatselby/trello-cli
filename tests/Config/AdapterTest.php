@@ -33,7 +33,7 @@ class AdapterTest extends \PHPUnit\Framework\TestCase
         $config = Adapter::getConfig();
 
         $this->assertInstanceOf('\TrelloCli\Config', $config);
-        $this->assertNull($config->getKey());
-        $this->assertNull($config->getSecret());
+        $this->assertEquals($config->getKey(), "");
+        $this->assertEquals($config->getSecret(), "");
     }
 }

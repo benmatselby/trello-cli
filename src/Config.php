@@ -9,17 +9,13 @@ class Config
 {
     /**
      * The Trello Key
-     *
-     * @var string
      */
-    protected $key;
+    protected ?string $key = null;
 
     /**
      * The Trello secret
-     *
-     * @var string
      */
-    protected $secret;
+    protected ?string $secret = null;
 
     /**
      * If the config is valid
@@ -33,7 +29,7 @@ class Config
      */
     public function getKey()
     {
-        return $this->key;
+        return $this->key ?? "";
     }
 
     /**
@@ -52,7 +48,7 @@ class Config
      */
     public function getSecret()
     {
-        return $this->secret;
+        return $this->secret ?? "";
     }
 
     /**
