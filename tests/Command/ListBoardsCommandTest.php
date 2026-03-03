@@ -11,7 +11,7 @@ class ListBoardsCommandTest extends \PHPUnit\Framework\TestCase
 {
     public function testConfigure(): void
     {
-        $trello = $this->createMock('\TrelloCli\Client');
+        $trello = $this->createStub('\TrelloCli\Client');
 
         $command = new ListBoardsCommand($trello);
 
@@ -24,7 +24,7 @@ class ListBoardsCommandTest extends \PHPUnit\Framework\TestCase
 
     public function testExecuteCanRenderWhatWeWant(): void
     {
-        $client = $this->createMock('\TrelloCli\Client');
+        $client = $this->createStub('\TrelloCli\Client');
         $client
             ->method('getBoards')
             ->willReturn([['name' => 'Films', 'closed' => false]]);

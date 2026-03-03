@@ -10,7 +10,7 @@ class LabelCardsCommandTest extends \PHPUnit\Framework\TestCase
 {
     public function testConfigure(): void
     {
-        $trello = $this->createMock('\TrelloCli\Client');
+        $trello = $this->createStub('\TrelloCli\Client');
 
         $command = new LabelCardsCommand($trello);
 
