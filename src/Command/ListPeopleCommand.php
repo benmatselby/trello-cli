@@ -77,14 +77,17 @@ class ListPeopleCommand extends Command
 
         foreach ($cards as $card) {
             foreach ($card['idMembers'] as $cardMemberId) {
+                if (!isset($members[$cardMemberId])) {
+                    continue;
+                }
                 $members[$cardMemberId]['cards'][$card['idList']][] = $card;
                 $members[$cardMemberId]['cardCount'] = (int) $members[$cardMemberId]['cardCount'] + 1;
 
                 preg_match('/^\((.+?)\)/', $card['name'], $points);
 
                 if (!empty($points) && isset($points[1])) {
-                    $members[$cardMemberId]['storyPoints'] =
-                        (float) $members[$cardMemberId]['storyPoints'] + (float) $points[1];
+                    $storyPoints = (float) $members[$cardMemberId]['storyPoints'];
+                    $members[$cardMemberId]['storyPoints'] = $storyPoints + (float) $points[1];
                 }
             }
         }
@@ -95,7 +98,7 @@ class ListPeopleCommand extends Command
             if ($cardCount == 0 && $showUnassigned == false) {
                 continue;
             }
-            $output->writeln($member['name']);
+            $output->writeln($member['name'] ?? "");
             $output->writeln(" Story Points [" . $member['storyPoints'] . "]");
             $output->writeln(" Cards [" . $cardCount . "]");
 

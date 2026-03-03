@@ -122,7 +122,7 @@ class ListCardsCommand extends Command
         }
 
         foreach ($cards as $card) {
-            $cardName = $card['name'];
+            $cardName = $card['name'] ?? '';
 
             if (!empty($card['badges']['due'])) {
                 $due = new \DateTime($card['badges']['due']);
@@ -142,7 +142,8 @@ class ListCardsCommand extends Command
         $output->writeln(str_repeat("=", strlen($title)) . PHP_EOL);
 
         foreach ($boardLayout as $layout) {
-            $listName = $layout['name'] . ' (' . count($layout['cards']) . ')';
+            $layoutName = $layout['name'] ?? '';
+            $listName = $layoutName . ' (' . count($layout['cards']) . ')';
             $output->writeln($listName);
             $output->writeln(str_repeat("=", strlen($listName)) . PHP_EOL);
 

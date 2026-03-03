@@ -71,6 +71,9 @@ class BurndownCommand extends Command
         $cards = $this->client->getCards($board['id']);
 
         foreach ($cards as $card) {
+            if (!isset($lists[$card['idList']])) {
+                continue;
+            }
             $lists[$card['idList']]['count'] += 1;
 
             preg_match('/^\((.+?)\)/', $card['name'], $points);
