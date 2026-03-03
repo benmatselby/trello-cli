@@ -74,7 +74,8 @@ class LabelCardsCommand extends Command
         }
 
         foreach ($boardLayout as $layout) {
-            $output->writeln($layout['name'] . ' (' . count($layout['cards']) . ')');
+            $layoutName = $layout['name'] ?? '';
+            $output->writeln($layoutName . ' (' . count($layout['cards']) . ')');
             foreach ($layout['cards'] as $layoutCard) {
                 $output->writeln(' ' . $layoutCard);
             }
