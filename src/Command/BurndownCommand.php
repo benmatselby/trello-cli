@@ -77,7 +77,7 @@ class BurndownCommand extends Command
             $lists[$card['idList']]['count'] += 1;
 
             preg_match('/^\((.+?)\)/', $card['name'], $points);
-            if (!empty($points) && isset($points[1])) {
+            if (!empty($points)) {
                 $lists[$card['idList']]['points'] += $points[1];
                 $pointCount += $points[1];
             }
