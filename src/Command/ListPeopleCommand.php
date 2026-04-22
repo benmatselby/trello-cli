@@ -85,7 +85,7 @@ class ListPeopleCommand extends Command
 
                 preg_match('/^\((.+?)\)/', $card['name'], $points);
 
-                if (!empty($points) && isset($points[1])) {
+                if (!empty($points)) {
                     $storyPoints = (float) $members[$cardMemberId]['storyPoints'];
                     $members[$cardMemberId]['storyPoints'] = $storyPoints + (float) $points[1];
                 }
